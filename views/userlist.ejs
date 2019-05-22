@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>User List</title>
+        
+  </head>
+  <body>
+   
+    <h1>Anmeldeliste</h1>
+    <ul>
+        <% 
+          for (var i = 0; i < userlist.length; i++) { %>
+            <li><a><%= userlist[i].username %></a>,
+                <a><%= userlist[i].lastname %></a>,
+                <a><%= userlist[i].useremail %></a>,
+                <a><%= userlist[i].stadt %></a>,
+                <a><%= userlist[i].plz %></a>,
+                <a><%= userlist[i].birth %></a>
+            </li>
+        <% 
+      } 
+    %>
+    </ul>
+
+  </body>
+</html>
+
+
+
+

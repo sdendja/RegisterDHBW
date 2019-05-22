@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <!-- Bootstrap core CSS -->
+    <link href="stylesheets/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="stylesheets/dashboard.css" rel="stylesheet">
+  </head>
+  <body>
+    <form id="form" name="request">
+
+        <div class="form-group row">
+             <button id="btnSubmit" type="submit" onclick="authenticate()">Authenticate</button>
+        </div>
+
+        <div class="form-group row">
+            <button id="btnSubmit" type="submit" onclick="createWallet()">Create Wallet</button>
+        </div>
+
+        <div class="form-group row">
+            <button id="btnSubmit" type="submit" onclick="createAsset()">Create Asset</button>
+        </div>
+
+        <div class="form-group row">
+            <button id="btnSubmit" type="submit" onclick="getBalance()">Wallet Balance</button>
+            &nbsp;
+            <input id="inputWalletAdress" type="text" placeholder="Wallet adress" name="walletadress" />
+        </div>
+
+        <div class="form-group row">
+          <button id="btnSubmit" type="submit" onclick="transferAsset()">Transefer to:</button>
+          &nbsp;
+          <input id="inputWalletAdress" type="text" placeholder="Wallet adress" name="walletadress" />
+         </div>
+      
+    </form>
+
+
+
+
+ 
+
+     <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+   
+    <script src="javascripts/jquery-slim.min.js"></script>
+    <script src="javascripts/bootstrap.min.js"></script>
+	  <script src="javascripts/registrierung.js"></script>
+    <script src="javascripts/request.js"></script>
+  </body>
+</html>
