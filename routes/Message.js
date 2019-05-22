@@ -1,3 +1,5 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 const bitcore = require('bitcore-lib');
 const PrivateKey = bitcore.PrivateKey;
 const PublicKey = bitcore.PublicKey;
@@ -7,7 +9,7 @@ const ECDSA = bitcore.crypto.ECDSA;
 const Signature = bitcore.crypto.Signature;
 const sha256sha256 = bitcore.crypto.Hash.sha256sha256;
 const JSUtil = bitcore.util.js;
-export class Message {
+class Message {
     constructor(message) {
         this.magicHash = function magicHash() {
             const prefix1 = BufferWriter.varintBufNum(this.MAGIC_BYTES.length);
@@ -17,7 +19,7 @@ export class Message {
             const hash = sha256sha256(buf);
             return hash;
         };
-        this.sign = function sign(privateKey) {
+        this._sign = function _sign(privateKey) {
             const hash = this.magicHash();
             const ecdsa = new ECDSA();
             ecdsa.hashbuf = hash;
@@ -37,7 +39,7 @@ export class Message {
             const signature = this._sign(privateKey);
             return signature.toCompact().toString('base64');
         };
-        this.verify = function verify(publicKey, signature) {
+        this._verify = function _verify(publicKey, signature) {
             var hash = this.magicHash();
             var verified = ECDSA.verify(hash, signature, publicKey);
             if (!verified) {
@@ -120,3 +122,5 @@ export class Message {
         return this;
     }
 }
+exports.Message = Message;
+//# sourceMappingURL=Message.js.map

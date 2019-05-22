@@ -1,12 +1,10 @@
 var express = require('express');
 var router = express.Router();
+const CryptoUtils = require("./CryptoUtil").CryptoUtils;
+
 
 let storage = require('node-sessionstorage');
 let rp = require('request-promise');
-
-
-
-
 
 
 /* GET home page. */
@@ -15,12 +13,127 @@ router.get('/', function(req, res, next) {
 });
 
 
-
-
 /* GET New User page. */
 router.get('/newuser', function(req, res) {
   res.render('newuser', { title: 'Add New User' });
 });
+
+router.get('/register', function(req, res){
+
+    requestToken().then(function(token){
+
+        let options = {
+            method: 'POST',
+            url: 'https://demo.juicechain.org/node/wallet',
+            headers: {
+                'authorization': token.token
+            },
+            json: true
+        };
+
+        rp(options).then(result => {
+            console.log(result);
+        });
+
+    });
+
+});
+
+router.get('/asset', function(req, res){
+
+    requestToken().then(function(token){
+
+        let options = {
+            method: 'POST',
+            url: 'https://demo.juicechain.org/node/assets/',
+            headers: {
+                'authorization': token.token,
+                'signature': "",
+            },
+            body: {
+                "name": "someAssetName2",
+                "amount": 1000,
+                "title": {
+                    "de_DE": "some title",
+                    "en_GB": "some title"
+                },
+                "publisher": "DHBW",
+                "type": "voucher",
+                "target": "12T6EhosKPhmpFpc4HAMxx2SwZHLoFmSvW",
+                "description": "Some longer text",
+                "options": {
+                    "transfer": true,
+                    "transferNode": null,
+                    "returnAddress": null,
+                    "offlineTargets": null
+                }
+            },
+            json: true
+        };
+
+        rp(options).then(result => {
+            console.log(result);
+        });
+
+    });
+
+});
+
+
+router.get('/transfer', function(req, res){
+
+    requestToken().then(function(token){
+
+        const signature = CryptoUtils.generateAuthToken("L57eRseU9tRquYNWkWHZX4S1J8cnV6sGZ2h4tvnSt4jrES59zoqX",
+            "12T6EhosKPhmpFpc4HAMxx2SwZHLoFmSvW", "", "");
+
+        let options = {
+            method: 'POST',
+            url: 'https://demo.juicechain.org/node/wallet/transfer/1PWA6McT2UCKWEc3VqUQKq2rT1q5kHWpk7',
+            headers: {
+                'authorization': token.token,
+                'signature': signature
+            },
+            body: {
+                asset: "demo:someassetname2",
+                amount: 2,
+                payload: ""
+            },
+            json: true
+        };
+
+        rp(options).then(result => {
+            console.log(result);
+        });
+
+    });
+
+});
+
+
+router.get('/balance', function(req, res){
+
+    requestToken().then(function(token){
+
+        const time = new Date();
+
+        let options = {
+            method: 'GET',
+            url: 'https://demo.juicechain.org/node/wallet/1PWA6McT2UCKWEc3VqUQKq2rT1q5kHWpk7/0/' + time.getTime(),
+            headers: {
+                'authorization': token.token,
+            },
+            json: true
+        };
+
+        rp(options).then(result => {
+            return res.send(result);
+        });
+
+    });
+
+});
+
 
 /* Requests page */
 router.get('/requests', function(req, res) {
@@ -38,7 +151,28 @@ router.get('/userlist', function(req, res) {
   });
 });
 
+const requestToken = function(){
+    return new Promise(function(resolve, reject) {
 
+        let options = {
+            method: 'POST',
+            url: 'https://demo.juicechain.org/node/auth',
+            headers: {
+                'authorization': 'none'
+            },
+            body: {
+                username: "none",
+                password: "none"
+            },
+            json: true
+        };
+
+        rp(options).then(result => {
+            resolve(result);
+        });
+
+    });
+}
 
 
 
