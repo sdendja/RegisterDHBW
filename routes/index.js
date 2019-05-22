@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const CryptoUtils = require("./CryptoUtil").CryptoUtils;
+const JuicEchain = require("./JuicEchain").JuicEchain;
 
 
 let storage = require('node-sessionstorage');
@@ -113,24 +114,15 @@ router.get('/transfer', function(req, res){
 
 router.get('/balance', function(req, res){
 
-    requestToken().then(function(token){
 
-        const time = new Date();
+    const juicechain = new JuicEchain();
 
-        let options = {
-            method: 'GET',
-            url: 'https://demo.juicechain.org/node/wallet/1PWA6McT2UCKWEc3VqUQKq2rT1q5kHWpk7/0/' + time.getTime(),
-            headers: {
-                'authorization': token.token,
-            },
-            json: true
-        };
+    juicechain.balance("1PWA6McT2UCKWEc3VqUQKq2rT1q5kHWpk7").then(function(balance){
 
-        rp(options).then(result => {
-            return res.send(result);
-        });
+        res.send(balance);
 
     });
+
 
 });
 
