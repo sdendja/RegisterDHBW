@@ -65,21 +65,16 @@ class JuicEchain{
             rp(options).then(result => {
                 resolve(result);
                 console.log(result);
-                
+            
                 storage.setItem("addresstmp", result["payload"]["address"])
                 console.log(storage.getItem("addresstmp")); 
                 var addresstmp = result["payload"]["address"]
                 console.log(addresstmp)
-                exports.addresstmp = addresstmp;
-
+           
                 
-                
-            
-             
+            });
 
-            })
-
-        });
+            });
         
     });
 
@@ -183,3 +178,4 @@ class JuicEchain{
 
 
 exports.JuicEchain = JuicEchain;
+

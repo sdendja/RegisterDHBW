@@ -1,6 +1,3 @@
-const addresstmp = require("./JuicEchain").addresstmp;
-let storage = require('node-sessionstorage');
-
 $(document).ready(function() {
     $('#btnBalance').click(function() {
         const origin = window.location.origin;
@@ -23,14 +20,13 @@ $(document).ready(function() {
         $.ajax(walletURL).then(function(res) {
             
             console.log(res);
-        
-            $.ajax(addwallet).then(function(res){
-
+            
+            $.ajax(addwallet).then(function(res) {
+            
+                console.log(res);
+                
+                
             })
-            
-            
-            
-            
         })
 
         return false

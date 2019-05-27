@@ -173,6 +173,12 @@ router.post('/adduser', function(req, res) {
 
 
 
+
+
+
+
+
+
 /* POST to Add Wallet  */
 router.get('/addwallet', function(req, res) {
     
@@ -184,14 +190,14 @@ router.get('/addwallet', function(req, res) {
   
     // Get our form values. These rely on the "name" attributes
 
-    var walletaddress = addresstmp;
+    //var walletaddress = "1234"
 
     // Set our collection
     var collection = db.get('usercollectionWallet');
 
     // Submit to the DB register data
     collection.insert({
-        "walletaddress" : walletaddress
+        "walletaddress" : "katarina"
     }, function (err, doc) {
         if (err) {
 
