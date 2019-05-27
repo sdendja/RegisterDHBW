@@ -1,7 +1,10 @@
 var express = require('express');
 var router = express.Router();
-const CryptoUtils = require("./CryptoUtil").CryptoUtils;
 const JuicEchain = require("./JuicEchain").JuicEchain;
+var addresstmp = require("./JuicEchain").addresstmp;
+
+
+
 
 
 let storage = require('node-sessionstorage');
@@ -13,11 +16,6 @@ router.get('/', function(req, res, next) {
   res.render('anmeldung', { title: 'Anmeldung' });
 });
 
-
-/* GET New User page. */
-router.get('/newuser', function(req, res) {
-  res.render('newuser', { title: 'Add New User' });
-});
 
 /* Requests page */
 router.get('/requests', function(req, res) {
@@ -35,6 +33,18 @@ router.get('/requests', function(req, res) {
     });
   });
 
+   /* GET requestlist page. */
+   router.get('/requestlist', function(req, res) {
+    var db = req.db;
+    var collection = db.get('usercollectionWallet');
+    collection.find({},{},function(e,docs){
+        res.render('requestlist', {
+            "requestlist" : docs
+        });
+    });
+  });
+
+
 
 //------------------------------------------------------------------------------------------------------------
 
@@ -46,16 +56,21 @@ router.get('/register', function(req, res){
 
     const juicechain = new JuicEchain();
 
-    juicechain.wallet();
-});
+    juicechain.wallet().then(function(register){
 
+        res.send(register);
+    })
+});
 
 router.get('/asset', function(req, res){
 
 
     const juicechain = new JuicEchain();
 
-    juicechain.asset();
+    juicechain.asset().then(function(asset){
+
+        res.send(asset);
+    })
 });
 
 router.get('/transfer', function(req, res){
@@ -63,7 +78,10 @@ router.get('/transfer', function(req, res){
 
     const juicechain = new JuicEchain();
 
-    juicechain.transfer("1PWA6McT2UCKWEc3VqUQKq2rT1q5kHWpk7");
+    juicechain.transfer("1PWA6McT2UCKWEc3VqUQKq2rT1q5kHWpk7").then(function(transfer){
+
+        res.send(transfer);
+    });
 });
 
 
@@ -121,10 +139,13 @@ router.post('/adduser', function(req, res) {
   var userPlz = req.body.plz;
   var userBirth = req.body.birth;
 
+
+
   // Set our collection
   var collection = db.get('usercollectionMark1');
+ 
 
-  // Submit to the DB
+  // Submit to the DB register data
   collection.insert({
       
       "username" : userName,
@@ -133,7 +154,6 @@ router.post('/adduser', function(req, res) {
       "stadt" : userStadt,
       "plz" : userPlz,
       "birth" : userBirth
-
 
 
   }, function (err, doc) {
@@ -148,6 +168,49 @@ router.post('/adduser', function(req, res) {
   });
 
 });
+
+
+
+
+
+/* POST to Add Wallet  */
+router.get('/addwallet', function(req, res) {
+    
+
+    // Set our internal DB variable
+
+                
+    var db = req.db;
+  
+    // Get our form values. These rely on the "name" attributes
+
+    var walletaddress = addresstmp;
+
+    // Set our collection
+    var collection = db.get('usercollectionWallet');
+
+    // Submit to the DB register data
+    collection.insert({
+        "walletaddress" : walletaddress
+    }, function (err, doc) {
+        if (err) {
+
+            // If it failed, return error
+            res.send("There was a problem adding the information to the database.");
+        }
+        else {
+            // And forward to success page
+            res.redirect("requestlist");
+        }
+    });
+  
+  });
+
+
+
+
+  
+
 
 
 

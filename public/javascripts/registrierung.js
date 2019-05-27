@@ -1,10 +1,3 @@
-/**
- * 
- */
-
-
-
-
 function  starteRegistrierung()
 {
 var filterplz = /^[7-9][0-9]{1,4}$/;

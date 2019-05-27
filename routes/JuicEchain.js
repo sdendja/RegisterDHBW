@@ -1,6 +1,9 @@
-
 const CryptoUtils = require("./CryptoUtil").CryptoUtils;
 let rp = require('request-promise');
+var express = require('express');
+let storage = require('node-sessionstorage');
+var router = express.Router();
+
 
 
 
@@ -8,9 +11,11 @@ class JuicEchain{
 
     transfer(address){
         const self = this;
-        self.requestToken().then(function(token){
+        return new Promise(function(resolve, reject){
 
-            const signature = CryptoUtils.generateAuthToken("L57eRseU9tRquYNWkWHZX4S1J8cnV6sGZ2h4tvnSt4jrES59zoqX",
+            self.requestToken().then(function(token){
+
+                const signature = CryptoUtils.generateAuthToken("L57eRseU9tRquYNWkWHZX4S1J8cnV6sGZ2h4tvnSt4jrES59zoqX",
                 "12T6EhosKPhmpFpc4HAMxx2SwZHLoFmSvW", "", "");
     
             let options = {
@@ -27,16 +32,26 @@ class JuicEchain{
                 },
                 json: true
             };
-    
-            rp(options).then(result => {
-                console.log(result);
+
+                rp(options).then(result => {
+                    resolve(result);
+                    console.log(result);
+                });
+
             });
-    
+
         });
     }
 
+    
+
+
+    
+
     wallet(){
+        
         const self = this;
+        return new Promise(function(resolve, reject){
         self.requestToken().then(function(token){
     
             let options = {
@@ -47,18 +62,34 @@ class JuicEchain{
                 },
                 json: true
             };
-    
             rp(options).then(result => {
+                resolve(result);
                 console.log(result);
-            });
-    
+                
+                storage.setItem("addresstmp", result["payload"]["address"])
+                console.log(storage.getItem("addresstmp")); 
+                var addresstmp = result["payload"]["address"]
+                console.log(addresstmp)
+                exports.addresstmp = addresstmp;
+
+                
+                
+            
+             
+
+            })
+
         });
-    
+        
+    });
+
     }
 
+    
 
     asset(){
         const self = this;
+        return new Promise(function(resolve, reject){
         self.requestToken().then(function(token){
 
             let options = {
@@ -89,10 +120,12 @@ class JuicEchain{
             };
     
             rp(options).then(result => {
+                resolve(result);
                 console.log(result);
             });
     
         });
+    });
     }
     
     balance(address){
