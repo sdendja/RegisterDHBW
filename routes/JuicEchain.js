@@ -7,6 +7,7 @@ var router = express.Router();
 
 
 
+
 class JuicEchain{
 
     transfer(address){
@@ -43,17 +44,13 @@ class JuicEchain{
         });
     }
 
-    
-
-
-    
 
     wallet(){
         
         const self = this;
         return new Promise(function(resolve, reject){
         self.requestToken().then(function(token){
-    
+        let addresstmp = null
             let options = {
                 method: 'POST',
                 url: 'https://demo.juicechain.org/node/wallet',
@@ -64,18 +61,16 @@ class JuicEchain{
             };
             rp(options).then(result => {
                 resolve(result);
+
                 console.log(result);
             
-                storage.setItem("addresstmp", result["payload"]["address"])
+                /*storage.setItem("addresstmp", result["payload"]["address"])
                 console.log(storage.getItem("addresstmp")); 
-                var addresstmp = result["payload"]["address"]
-                console.log(addresstmp)
-           
-                
+                addresstmp = result["payload"]["address"]*/
+        
             });
 
             });
-        
     });
 
     }
@@ -138,15 +133,24 @@ class JuicEchain{
                         'authorization': token.token,
                     },
                     json: true
-                };
 
+                    
+                };
                 rp(options).then(result => {
                     resolve(result);
+                   
+                    
                 });
+                
+
+                
 
             });
 
         });
+
+        
+        
     }
  
     requestToken(){
