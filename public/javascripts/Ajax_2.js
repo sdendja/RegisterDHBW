@@ -58,12 +58,10 @@ $(document).ready(function() {
             const transferUrl = origin + "/transfer?walletaddress=" + walletaddress + "&inputAssetName=" + inputAssetName;
             $.ajax(transferUrl).then(function(res) {
                 console.log(res)
-                
-
-                let success = res.success;
-                let error = res.error.message;
-                console.log(success)
-                
+                console.log("log")
+            
+                const success = res.payload.success
+                const error = res.payload.error;
                 
                 if(success == false){
 
@@ -74,7 +72,7 @@ $(document).ready(function() {
 
                     let success = res.success;
                     console.log(success)
-                    alert("Sie haben auf: " + walletaddress2 + " 1 Ticket erhalten");
+                    alert("Sie haben auf: " + walletaddress + " 1 Ticket erhalten");
 
                 }
                 
@@ -105,12 +103,9 @@ $(document).ready(function() {
             const transferUrl = origin + "/transfer?walletaddress=" + walletaddress + "&inputAssetName=" + inputAssetName;
             $.ajax(transferUrl).then(function(res) {
                 console.log(res)
-                
-
-                let success = res.success;
-                let error = res.error.message;
-                console.log(success)
-                
+            
+                const success = res.payload.success;
+                const error = res.payload.error;
                 
                 if(success == false){
 
@@ -121,7 +116,7 @@ $(document).ready(function() {
 
                     let success = res.success;
                     console.log(success)
-                    alert("Sie haben auf: " + walletaddress2 + " 1 Ticket erhalten");
+                    alert("Sie haben auf: " + walletaddress + " 1 Ticket erhalten");
 
                 }
                 
@@ -155,11 +150,8 @@ $(document).ready(function() {
             $.ajax(transferUrl).then(function(res) {
                 console.log(res)
                 
-
-                let success = res.success;
-                let error = res.error.message;
-                console.log(success)
-                
+                const success = res.payload.success;
+                const error = res.payload.error;
                 
                 if(success == false){
 
@@ -170,7 +162,7 @@ $(document).ready(function() {
 
                     let success = res.success;
                     console.log(success)
-                    alert("Sie haben auf: " + walletaddress2 + " 1 Ticket erhalten");
+                    alert("Sie haben auf: " + walletaddress + " 1 Ticket erhalten");
 
                 }
                 
@@ -200,13 +192,10 @@ $(document).ready(function() {
             const transferUrl = origin + "/transfer?walletaddress=" + walletaddress + "&inputAssetName=" + inputAssetName;
             $.ajax(transferUrl).then(function(res) {
                 console.log(res)
-                
 
-                let success = res.success;
-                let error = res.error.message;
-                console.log(success)
-                
-                
+                const success = res.payload.success;
+                const error = res.payload.error;
+            
                 if(success == false){
 
                     alert(error+". Bitte Eingaben überprüfen")
@@ -216,7 +205,7 @@ $(document).ready(function() {
 
                     let success = res.success;
                     console.log(success)
-                    alert("Sie haben auf: " + walletaddress2 + " 1 Ticket erhalten");
+                    alert("Sie haben auf: " + walletaddress + " 1 Ticket erhalten");
 
                 }
                 
