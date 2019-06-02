@@ -1,17 +1,13 @@
 const CryptoUtils = require("./CryptoUtil").CryptoUtils;
 let rp = require('request-promise');
-var express = require('express');
-let storage = require('node-sessionstorage');
-var router = express.Router();
-
-
-
 
 
 class JuicEchain{
 
-    transfer(address){
+    transfer(address, assetName){
+
         const self = this;
+        console.log(address)
         return new Promise(function(resolve, reject){
 
             self.requestToken().then(function(token){
@@ -27,12 +23,12 @@ class JuicEchain{
                     'signature': signature
                 },
                 body: {
-                    asset: "demo:someassetname2",
+                    asset: assetName,
                     amount: 2,
                     payload: ""
                 },
                 json: true
-            };
+                };
 
                 rp(options).then(result => {
                     resolve(result);
@@ -50,7 +46,7 @@ class JuicEchain{
         const self = this;
         return new Promise(function(resolve, reject){
         self.requestToken().then(function(token){
-        let addresstmp = null
+        
             let options = {
                 method: 'POST',
                 url: 'https://demo.juicechain.org/node/wallet',
@@ -58,64 +54,59 @@ class JuicEchain{
                     'authorization': token.token
                 },
                 json: true
-            };
-            rp(options).then(result => {
-                resolve(result);
-
-                console.log(result);
+                };
+                rp(options).then(result => {
+                    resolve(result);
+                    console.log(result);
             
-                /*storage.setItem("addresstmp", result["payload"]["address"])
-                console.log(storage.getItem("addresstmp")); 
-                addresstmp = result["payload"]["address"]*/
-        
-            });
+                });
 
             });
-    });
+        });
 
     }
 
     
 
-    asset(){
+    asset(assetName){
         const self = this;
         return new Promise(function(resolve, reject){
-        self.requestToken().then(function(token){
+            self.requestToken().then(function(token){
 
-            let options = {
-                method: 'POST',
-                url: 'https://demo.juicechain.org/node/assets/',
-                headers: {
-                    'authorization': token.token
-                },
-                body: {
-                    "name": "someAssetName2",
-                    "amount": 1000,
-                    "title": {
-                        "de_DE": "some title",
-                        "en_GB": "some title"
+                let options = {
+                    method: 'POST',
+                    url: 'https://demo.juicechain.org/node/assets/',
+                    headers: {
+                        'authorization': token.token
                     },
-                    "publisher": "DHBW",
-                    "type": "voucher",
-                    "target": "12T6EhosKPhmpFpc4HAMxx2SwZHLoFmSvW",
-                    "description": "Some longer text",
-                    "options": {
-                        "transfer": true,
-                        "transferNode": null,
-                        "returnAddress": null,
-                        "offlineTargets": null
-                    }
-                },
-                json: true
-            };
-    
-            rp(options).then(result => {
-                resolve(result);
-                console.log(result);
+                    body: {
+                        "name": assetName,
+                        "amount": 1000,
+                        "title": {
+                            "de_DE": "some title",
+                            "en_GB": "some title"
+                        },
+                        "publisher": "DHBW",
+                        "type": "voucher",
+                        "target": "12T6EhosKPhmpFpc4HAMxx2SwZHLoFmSvW",
+                        "description": "Some longer text",
+                        "options": {
+                            "transfer": true,
+                            "transferNode": null,
+                            "returnAddress": null,
+                            "offlineTargets": null
+                        }
+                    },
+                    json: true
+                };
+        
+                rp(options).then(result => {
+                    resolve(result);
+                    console.log(result);
+                });
+        
             });
-    
         });
-    });
     }
     
     balance(address){
@@ -133,24 +124,17 @@ class JuicEchain{
                         'authorization': token.token,
                     },
                     json: true
-
-                    
+  
                 };
                 rp(options).then(result => {
                     resolve(result);
-                   
-                    
+                     
                 });
-                
-
-                
-
+        
             });
 
         });
 
-        
-        
     }
  
     requestToken(){

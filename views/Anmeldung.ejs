@@ -36,55 +36,27 @@
 						<div class="container-fluid">
 								
 								 
-									<div class="form-group row">
-										<label for="username" class="col-sm-3 col-form-label">Vorname:</label>
-											<input type="text" class="form-control col-sm-9" id="username" placeholder="Vorname Eingeben" name="username" required>
-									</div>
-									   
-									<div class="form-group row">
-											<label for="lastname" class="col-sm-3 col-form-label">Nachname:</label>
-											<input type="text" class="form-control col-sm-9" id="lastname" placeholder="Nachname Eingeben" name="lastname" required>
-									</div>
 									
-									<div class="form-group row">
-											<label for="useremail" class="col-sm-3 col-form-label">Email:</label>
-											<input type="email" class="form-control col-sm-9" id="useremail" placeholder="Email Eingeben" name="useremail" required>
-									</div>
+							<div class="form-group row">
+									<label for="useremail" class="col-sm-3 col-form-label">Email:</label>
+									<input type="email" class="form-control col-sm-9" id="useremail" placeholder="Email Eingeben" name="useremail" required>
+							</div>
 									
-									<div class="form-group row">
-											<label for="renewemail" class="col-sm-3 col-form-label">Email:</label>
-											<input type="email" class="form-control col-sm-9" id="renewemail" placeholder="Email Wiederholen" name="renewemail" required>
-									</div>
+							<div class="form-group row">
+									<label for="renewemail" class="col-sm-3 col-form-label">Email Wiederholen:</label>
+									<input type="email" class="form-control col-sm-9" id="renewemail" placeholder="Email Wiederholen" name="renewemail" required>
+							</div>
 	
-									<div class="form-group row">
-											<label for="stadt" class="col-sm-3 col-form-label">Stadt:</label>
-											<input type="text" class="form-control col-sm-9" id="stadt" placeholder="Stadt Eingeben" name="stadt" required>
-									</div>
-	
-									<div class="form-group row">
-											<label for="plz" class="col-sm-3 col-form-label">PLZ:</label>
-											<input type="text" class="form-control col-sm-9" id="plz" placeholder="PLZ Eingeben" name="plz" required>
-									</div>
-	
-									<div class="form-group row">
-											<label for="birth" class="col-sm-3 col-form-label">Geburtsdatum:</label>
-											<input type="date" class="form-control col-sm-9" id="birth" placeholder="Geburtsdatum" name ="birth" required>
-									</div>
-								
-				  
 								
 
 									
-	      			</div>
+	      				</div>
 	      		</div>
 	      		<div class="modal-footer">
-	       			<button id="btnSubmit" class="btn btn-primary btn-sm" type="submit" onclick="return starteRegistrierung()" >Registrieren</button>
+	       			<button id="btnRegister" class="btn btn-primary btn-sm" type="submit" onclick="return starteRegistrierung()">Registrieren</button>
          			<button type="button" class="btn btn-sm" data-dismiss="modal" aria-label="Close">Abbrechen</button>
 	   			</div>
 				</form>
-
-				
-				
 	   		</div>
   		</div>
 	</div>
@@ -104,26 +76,24 @@
         </ul>
     </nav>
    
-    <main role="main" class="col-md-12 ml-sm-auto col-lg-14 px-4">
-        
-    <div class="d-flex justify-content-between align-items-center">
-    </div>
-	<br>
-	<button type="button" class="btn btn-primary btn-sm" id="button" data-toggle="modal" data-target="#myModal">Anmelden</button> 
-	
-  
-
-       
+    <main role="main" class="col-md-12 ml-sm-auto col-lg-14 px-4"> 
+		<div class="d-flex justify-content-between align-items-center">
+		</div>
+		<br>
+		<button type="button" class="btn btn-primary btn-sm" id="button" data-toggle="modal" data-target="#myModal">Anmelden</button>  
     </main>
     <!-- Bootstrap core JavaScript
-    ================================================== -->
+	================================================== -->
+	
+<script
+			  src="https://code.jquery.com/jquery-3.4.1.min.js"
+			  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+			  crossorigin="anonymous"></script>
+
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="javascripts/jquery-slim.min.js"></script>
     <script src="javascripts/bootstrap.min.js"></script>
 	<script src="javascripts/registrierung.js"></script>
-	<script src="javascripts/request.js"></script>
-
-
 
 </body>
 </html>

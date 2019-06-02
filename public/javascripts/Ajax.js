@@ -1,23 +1,55 @@
+
+
+
 $(document).ready(function() {
     $('#btnBalance').click(function() {
-        var walletaddress1 = document.querySelector("#inputWalletAddress1").value;
+        var inputUserEmail = document.querySelector("#inputUserEmail1").value;
         const origin = window.location.origin;
-        const balanceUrl = origin + "/balance?walletaddress1=" + walletaddress1;
-        $.ajax(balanceUrl, {url: '/balance'}).then(function(res, req) {
-            
-            console.log(res)
-            
-        }).done(function (data){
-            
-            alert("Ihre Walletbalance ist:" + data )
-        })
-        
-        return false
-        
-    })
-    
-})
+        const dbURL = origin + "/db_information?inputUserEmail=" + inputUserEmail;
+        $.ajax(dbURL, {url: '/db_information'}).then(function(res) {
 
+            const walletaddress = res;
+            const origin = window.location.origin;
+            const balanceUrl = origin + "/balance?walletaddress=" + walletaddress;
+            $.ajax(balanceUrl, {url: '/balance'}).then(function(res) {
+
+
+                let status = res.payload
+                console.log(status)
+                if(status.length != 0 ) {
+
+                    let assetName = []
+                    let assetQuantity = []
+                    let alertText = ""
+                    let alertInfo = ""
+                    
+                        for(i=0; i<status.length; i++){
+
+        
+                            assetName.push(res.payload[i].name)
+                            assetQuantity.push(res.payload[i].quantity)
+        
+                            alertInfo = "Ihre Walletbalance für: " + assetName[i] + " ist: " + assetQuantity[i]+".     "
+                            
+                            alertText = alertText + alertInfo.toString()
+                            
+                        }
+                        alert(alertText)
+                    
+                }
+                else{
+                    alert("kein Guthaben vorhanden")
+                }
+                
+                
+            })
+
+            return false
+        })
+            
+    })
+        
+})
 
 $(document).ready(function() {
     $('#btnCreateWallet').click(function() {
@@ -25,9 +57,7 @@ $(document).ready(function() {
         const walletURL = origin + "/register"; 
         $.ajax(walletURL).then(res => {
             console.log(res)
-
-
-            
+         
 
         })
 
@@ -37,10 +67,17 @@ $(document).ready(function() {
 
 $(document).ready(function() {
     $('#btnCreateAsset').click(function() {
+        var assetName = document.querySelector("#inputAssetName").value;
         const origin = window.location.origin;
-        const assetUrl = origin + "/asset";   
+        const assetUrl = origin + "/asset?assetName=" + assetName;   
         $.ajax(assetUrl).then(function(res) {
             console.log(res)
+            let status = res.success
+            let err = res.error
+            if(status == false){
+                alert(err)
+            }
+            
         })
 
         return false
@@ -49,17 +86,42 @@ $(document).ready(function() {
 
 $(document).ready(function() {
     $('#btnTransfer').click(function() {
-        var walletaddress2 = document.querySelector("#inputWalletAddress2").value;
+        var inputUserEmail = document.querySelector("#inputUserEmail2").value;
         const origin = window.location.origin;
-        const transferUrl = origin + "/transfer?walletaddress2=" + walletaddress2;
-        $.ajax(transferUrl).then(function(res) {
-            console.log(res)
-            
+        const dbURL = origin + "/db_information?inputUserEmail=" + inputUserEmail;
+        
+        $.ajax(dbURL, {url: '/db_information'}).then(function(res) {
+
+            var inputAssetName = "demo:"+document.querySelector("#inputAssetName").value;
+            const walletaddress = res;
+            const origin = window.location.origin;
+            const transferUrl = origin + "/transfer?walletaddress=" + walletaddress + "&inputAssetName=" + inputAssetName;
+           
+            $.ajax(transferUrl).then(function(res) {
+                
+                let success = res.success;
+                let error = res.error.message;
+                console.log(success)
+                
+                
+                if(success == false){
+                    alert(error+". Bitte Eingaben überprüfen")
+                
+                }
+                else{
+                    
+                    alert("Sie haben an: " + inputUserEmail + " 1 Ticket transferiert");
+                }
+                
+            })
+
+            return false
         })
 
-        return false
     })
 })
+            
+          
 
 
 

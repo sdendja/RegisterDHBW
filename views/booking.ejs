@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <!-- Bootstrap core CSS -->
+    <link href="stylesheets/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="stylesheets/dashboard.css" rel="stylesheet">
+  </head>
+  <body>
+    
+
+
+    
+
+    <main role="main" class="col-md-12 ml-sm-auto col-lg-14 px-4">
+
+        <div class="form-group row">
+            <input id="inputUserEmail" type="text" placeholder="Enter E-Mail" name="emailName"/>
+        </div>
+
+        <div id="buttoncount" name="button1" class="form-group row">
+            <label id="label1" class="col-sm-2 col-form-label">Slot 1:</label>
+            <button id="btnTicket1" class="col-sm-2 col-form-label" type="submit">Book now!</button>
+        </div>
+    
+
+        <div id="buttoncount" name="button2" class="form-group row">
+            <label id="label2" class="col-sm-2 col-form-label">Slot 2:</label>
+            <button id="btnTicket2" class="col-sm-2 col-form-label" type="submit">Book now!</button>
+        </div>
+   
+        <div id="buttoncount" name="button3" class="form-group row">
+            <label id="label3" class="col-sm-2 col-form-label">Slot 3:</label>
+            <button id="btnTicket3" class="col-sm-2 col-form-label" type="submit">Book now!</button>
+            &nbsp;
+            
+        </div>
+    
+        <div id="buttoncount" name="button4" class="form-group row">
+            <label id="label4" class="col-sm-2 col-form-label">Slot 4:</label>
+            <button id="btnTicket4" class="col-sm-2 col-form-label" type="submit">Book now!</button>
+            &nbsp;
+        </div>
+
+        <div id="buttoncount" name="button5" class="form-group row">
+            <label id="label5" class="col-sm-2 col-form-label">Slot 4:</label>
+            <button id="btnTicket5" class="col-sm-2 col-form-label" type="submit">Book now!</button>
+            &nbsp;
+        </div>
+
+        <div id="buttoncount" name="button6" class="form-group row">
+            <label id="label6" class="col-sm-2 col-form-label">Slot 4:</label>
+            <button id="btnTicket6" class="col-sm-2 col-form-label" type="submit">Book now!</button>
+            &nbsp;
+        </div>
+
+        <div id="buttoncount" name="button7" class="form-group row">
+            <label id="label7" class="col-sm-2 col-form-label">Slot 4:</label>
+            <button id="btnTicket7" class="col-sm-2 col-form-label" type="submit">Book now!</button>
+            &nbsp;
+        </div>
+
+         <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
+            <a class="navbar-brand col-sm-2 col-md-4 mr-0" href="#">Book your Ticket</a>
+            <ul class="navbar-nav px-3">
+            </ul>
+        </nav>
+    </main>
+
+   
+    
+ 
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+   
+    <script type="text/javascript">
+        window.onload = function (address) {
+        if (window.location.search != '')
+           var url = window.location.search;
+              var walletaddress = url.replace('?address=', '');
+                 
+                 alert("Ihre Walletadresse ist: " + walletaddress)
+        }
+    </script>
+
+
+
+    <script
+			  src="https://code.jquery.com/jquery-3.4.1.min.js"
+			  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+              crossorigin="anonymous">
+    </script>
+
+   <!-- <script src="javascripts/jquery.min.js"></script> -->
+    <script src="javascripts/bootstrap.min.js"></script>
+    <script src="javascripts/Ajax_2.js"></script>
+  </body>
+</html>

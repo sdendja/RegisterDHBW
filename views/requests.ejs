@@ -2,6 +2,7 @@
 <html>
   <head>
     <title><%= title %></title>
+    
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <!-- Bootstrap core CSS -->
     <link href="stylesheets/bootstrap.min.css" rel="stylesheet">
@@ -11,43 +12,32 @@
   </head>
   <body>
     
-
-    <form name="form" id="formAddWallet" action="/addwallet"></form>
+      <main role="main" class="col-md-12 ml-sm-auto col-lg-14 px-4">
         <div class="form-group row">
-            <button id="btnCreateWallet" type="submit">Create Wallet</button>
-        </div>
-    </form>
-
-    
-
-
-
-    <form id="form" name="request" action=""></form>
-        <div class="form-group row">
-            <button id="btnCreateAsset">Create Asset</button>
-        </div>
-    
-
-    
-   
-        <div class="form-group row">
-            <button id="btnBalance" type="submit">Wallet Balance</button>
+            <button id="btnBalance" class="col-sm-3 col-form-label" type="submit">Wallet Balance</button>
             &nbsp;
-            <input id="inputWalletAddress1" type="text" placeholder="Wallet address" name="walletaddress1" />
+            <input id="inputUserEmail1" type="text" placeholder="Type in your Email" name="Email1" required/>
         </div>
-    
-
-    
-
+  
         <div class="form-group row">
-          <button id="btnTransfer" type="submit">Transefer to:</button>
+          <button id="btnTransfer" class="col-sm-3 col-form-label" type="submit">Transefer to:</button>
           &nbsp;
-          <input id="inputWalletAddress2" type="text" placeholder="Wallet address" name="walletaddress2" />
-         </div>
-    </form>
+          <input id="inputAssetName" type="text" placeholder="Type in the assetname" name="assetName" required />
+          &nbsp;
+          <input id="inputUserEmail2" type="text" placeholder="Type in your Email" name="Email2" required />
+        </div>
 
+
+         <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
+            <a class="navbar-brand col-sm-2 col-md-4 mr-0" href="#">Get balance or transfer ticket</a>
+            <ul class="navbar-nav px-3">
+            </ul>
+        </nav>
+      </main>
     
+     
 
+      
 
 
     <!-- Bootstrap core JavaScript

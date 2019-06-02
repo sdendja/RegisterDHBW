@@ -1,27 +1,45 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>User List</title>
+    <title>Userlist in Database</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <!-- Bootstrap core CSS -->
+    <link href="stylesheets/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="stylesheets/dashboard.css" rel="stylesheet">
         
   </head>
   <body>
+    <main role="main" class="col-md-12 ml-sm-auto col-lg-14 px-4">
    
-    <h1>Anmeldeliste</h1>
-    <ul>
-        <% 
-          for (var i = 0; i < userlist.length; i++) { %>
-            <li><a><%= userlist[i].username %></a>,
-                <a><%= userlist[i].lastname %></a>,
-                <a><%= userlist[i].useremail %></a>,
-                <a><%= userlist[i].stadt %></a>,
-                <a><%= userlist[i].plz %></a>,
-                <a><%= userlist[i].birth %></a>
-            </li>
-        <% 
-      } 
-    %>
-    </ul>
+      <ul>
+          <% 
+            for (var i = 0; i < userlist.length; i++) { %>
+              <li>
+                  <a><%= userlist[i].useremail %></a>,
+                  <a><%= userlist[i].userwallet %></a>
+              </li>
+          <% 
+        } 
+      %>
+      </ul>
 
+
+    
+        
+
+    <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
+      <a class="navbar-brand col-sm-2 col-md-4 mr-0" href="#">Userlist in Database</a>
+      <ul class="navbar-nav px-3">
+      </ul>
+    </nav>
+  </main>
+
+
+    <!-- <script src="javascripts/jquery.min.js"></script> -->
+  
+   
   </body>
 </html>
 

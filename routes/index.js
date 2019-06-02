@@ -1,9 +1,6 @@
 var express = require('express');
 var router = express.Router();
 const JuicEchain = require("./JuicEchain").JuicEchain;
-
-
-let storage = require('node-sessionstorage');
 let rp = require('request-promise');
 
 
@@ -21,7 +18,7 @@ router.get('/requests', function(req, res) {
   /* GET Userlist page. */
   router.get('/userlist', function(req, res) {
     var db = req.db;
-    var collection = db.get('usercollectionMark1');
+    var collection = db.get('usercollectionMark3');
     collection.find({},{},function(e,docs){
         res.render('userlist', {
             "userlist" : docs
@@ -29,15 +26,15 @@ router.get('/requests', function(req, res) {
     });
   });
 
-   /* GET requestlist page. */
-   router.get('/requestlist', function(req, res) {
-    var db = req.db;
-    var collection = db.get('usercollectionWallet');
-    collection.find({},{},function(e,docs){
-        res.render('requestlist', {
-            "requestlist" : docs
-        });
-    });
+
+  /* Requests page */
+router.get('/booking', function(req, res) {
+    res.render('booking', { title: 'Book your ticket! try it out' });
+  });
+
+  /* Requests page */
+router.get('/createAssets', function(req, res) {
+    res.render('createAssets', { title: 'Create your Assets! try it out' });
   });
 
 
@@ -45,52 +42,62 @@ router.get('/requests', function(req, res) {
 //------------------------------------------------------------------------------------------------------------
 
 
+router.post('/adduser', function(req, res) {
 
-
-router.get('/register', function(req, res){
-
-
-    const juicechain = new JuicEchain();
-
-    juicechain.wallet().then((register) => {
-
-        // Set our internal DB variable
-
-                
-        var db = req.db;
+    //-------------------------------
     
-        // Get our form values. These rely on the "name" attributes
+        const juicechain = new JuicEchain();
+    
+        juicechain.wallet().then((register) => {
+    
+            // Set our internal DB variable
+    
+            var walletaddress = register.payload.address;  
+    
+            // Set our internal DB variable
+    
+            var db = req.db;
+    
+            // Get our form values. These rely on the "name" attributes
+    
+            var userEmail = req.body.useremail;
+            var userWallet = walletaddress;
+                
+            // Set our collection
+            var collection = db.get('usercollectionMark3');
+                
+    
+            // Submit to the DB register data
+            collection.insert({      
+                    
+                "useremail" : userEmail,
+                "userwallet" : userWallet,
+                    
+            }, function (err, doc) {
+                if (err) {
+                    // If it failed, return error
+                    res.send("There was a problem adding the information to the database.");
+                }
+                else {
 
-        var walletaddress = register.payload.address;
-
-        // Set our collection
-        var collection = db.get('usercollectionWallet');
-
-        // Submit to the DB register data
-        collection.insert({
-            "walletaddress" : walletaddress
-        }, function (err, doc) {
-            if (err) {
-
-                // If it failed, return error
-                res.send("There was a problem adding the information to the database.");
-            }
-            else {
-                // And forward to success page
-                res.redirect("requestlist");
-            }
+                    
+                    // And forward to success page
+                    const userlistURL = "/booking?address=" + walletaddress;
+                    res.redirect(userlistURL);
+                }
+            });
+    
         });
-        
-
     })
-});
+
 
 router.get('/asset', function(req, res){
 
+    let assetName = req.query.assetName;
 
     const juicechain = new JuicEchain();
 
-    juicechain.asset().then(function(asset){
+    juicechain.asset(assetName).then(function(asset){
 
         res.send(asset);
     })
@@ -98,11 +105,13 @@ router.get('/asset', function(req, res){
 
 router.get('/transfer', function(req, res){
 
-    var test = req.query.walletaddress2;
+    var walletaddress = req.query.walletaddress;
+    var assetName = req.query.inputAssetName;
 
     const juicechain = new JuicEchain();
 
-    juicechain.transfer(test).then(function(transfer){
+    juicechain.transfer(walletaddress, assetName).then(function(transfer){
+
 
         res.send(transfer);
     });
@@ -113,14 +122,13 @@ router.get('/transfer', function(req, res){
 
 router.get('/balance', function(req, res){
 
-    var test1 = req.query.walletaddress1; 
+    var walletaddress = req.query.walletaddress; 
 
     const juicechain = new JuicEchain();
 
-    juicechain.balance(test1).then(function(balance){
+    juicechain.balance(walletaddress).then(function(balance){
         
-        
-
+    
         
         res.send(balance);
         
@@ -130,19 +138,66 @@ router.get('/balance', function(req, res){
     });
 });
 
+router.get('/balance2', function(req, res){
 
-router.get('/transfer', function(req, res){
-
-    var test2 = req.query.walletaddress2;
+    var test1 = "12T6EhosKPhmpFpc4HAMxx2SwZHLoFmSvW"
 
     const juicechain = new JuicEchain();
-
-    juicechain.transfer(test2).then(function(transfer){
-
-        res.send(transfer);
-        
+    
+    juicechain.balance(test1).then(function(balance){
+                    
+        res.send(balance);
+                
     });
 });
+
+router.get('/db_information', function(req, res){
+
+    var userEmail = req.query.inputUserEmail
+
+    // Set our internal DB variable
+        
+    var db = req.db;
+   
+    // Set our collection
+    var collection = db.get('usercollectionMark3');
+        
+
+    // Submit to the DB register data
+
+    collection.find({"useremail": userEmail}, function(err, result){
+
+        if(err){
+            res.send("There was a problem adding the information to the database.")
+        }
+        else{
+            const userwallet = result[0].userwallet
+    
+            console.log(userwallet);
+            
+            res.send(userwallet);
+        }
+        
+        
+            
+        
+       
+    })
+    
+});
+
+
+
+
+
+
+//------------------------------------------------------
+
+
+
+
+
+
 
 
 
@@ -168,103 +223,5 @@ const requestToken = function(){
 
     });
 }
-//--------------------------------------------------------------------------------
-/* POST to Add User Service */
-router.post('/adduser', function(req, res) {
 
-  // Set our internal DB variable
-  var db = req.db;
-
-  // Get our form values. These rely on the "name" attributes
-
-
-  var userName = req.body.username;
-  var userLastname = req.body.lastname
-  var userEmail = req.body.useremail;
-  var userStadt = req.body.stadt;
-  var userPlz = req.body.plz;
-  var userBirth = req.body.birth;
-
-
-
-  // Set our collection
-  var collection = db.get('usercollectionMark1');
- 
-
-  // Submit to the DB register data
-  collection.insert({
-      
-      "username" : userName,
-      "lastname" : userLastname,
-      "useremail" : userEmail,
-      "stadt" : userStadt,
-      "plz" : userPlz,
-      "birth" : userBirth
-
-
-  }, function (err, doc) {
-      if (err) {
-          // If it failed, return error
-          res.send("There was a problem adding the information to the database.");
-      }
-      else {
-          // And forward to success page
-          res.redirect("userlist");
-      }
-  });
-
-});
-
-
-
-
-
-/* POST to Add Wallet  
-router.get('/addwallet', function(req, res) {
-
-
-    
-
-    // Set our internal DB variable
-
-                
-    var db = req.db;
-  
-    // Get our form values. These rely on the "name" attributes
-
-    var walletaddress = addresstmp
-
-    // Set our collection
-    var collection = db.get('usercollectionWallet');
-
-    // Submit to the DB register data
-    collection.insert({
-        "walletaddress" : walletaddress
-    }, function (err, doc) {
-        if (err) {
-
-            // If it failed, return error
-            res.send("There was a problem adding the information to the database.");
-        }
-        else {
-            // And forward to success page
-            res.redirect("requestlist");
-        }
-    });
-  
-  });
-*/
-
-
-
-  
-
-
-
-
-module.exports = router 
-
-
-
-
-
+module.exports = router
