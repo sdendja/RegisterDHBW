@@ -3,14 +3,10 @@ var router = express.Router();
 const JuicEchain = require("./JuicEchain").JuicEchain;
 let rp = require('request-promise');
 
-
-/* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('anmeldung', { title: 'Anmeldung' });
 });
 
-
-/* Requests page */
 router.get('/requests', function(req, res) {
     res.render('requests', { title: 'Requests try it out' });
   });
@@ -26,25 +22,21 @@ router.get('/requests', function(req, res) {
     });
   });
 
-
-  /* Requests page */
 router.get('/booking', function(req, res) {
     res.render('booking', { title: 'Book your ticket! try it out' });
   });
 
-  /* Requests page */
 router.get('/createAssets', function(req, res) {
     res.render('createAssets', { title: 'Create your Assets! try it out' });
   });
 
+router.get('/entry', function(req, res) {
+    res.render('entry', { title: 'Entry event' });
+  });
 
-
-//------------------------------------------------------------------------------------------------------------
-
+//---------Requests---------------------------------------------------------------------------------------------------
 
 router.post('/adduser', function(req, res) {
-
-    //-------------------------------
     
         const juicechain = new JuicEchain();
     
@@ -64,8 +56,7 @@ router.post('/adduser', function(req, res) {
             var userWallet = walletaddress;
                 
             // Set our collection
-            var collection = db.get('usercollectionMark3');
-                
+            var collection = db.get('usercollectionMark3');   
     
             // Submit to the DB register data
             collection.insert({      
@@ -80,7 +71,6 @@ router.post('/adduser', function(req, res) {
                 }
                 else {
 
-                    
                     // And forward to success page
                     const userlistURL = "/booking?address=" + walletaddress;
                     res.redirect(userlistURL);
@@ -89,7 +79,6 @@ router.post('/adduser', function(req, res) {
     
         });
     })
-
 
 router.get('/asset', function(req, res){
 
@@ -112,13 +101,9 @@ router.get('/transfer', function(req, res){
 
     juicechain.transfer(walletaddress, assetName).then(function(transfer){
 
-
         res.send(transfer);
     });
 });
-
-
-
 
 router.get('/balance', function(req, res){
 
@@ -127,13 +112,8 @@ router.get('/balance', function(req, res){
     const juicechain = new JuicEchain();
 
     juicechain.balance(walletaddress).then(function(balance){
-        
-    
-        
+         
         res.send(balance);
-        
-        
-        
         
     });
 });
@@ -162,7 +142,6 @@ router.get('/db_information', function(req, res){
     // Set our collection
     var collection = db.get('usercollectionMark3');
         
-
     // Submit to the DB register data
 
     collection.find({"useremail": userEmail}, function(err, result){
@@ -177,29 +156,12 @@ router.get('/db_information', function(req, res){
             
             res.send(userwallet);
         }
-        
-        
-            
-        
        
     })
     
 });
 
-
-
-
-
-
 //------------------------------------------------------
-
-
-
-
-
-
-
-
 
 const requestToken = function(){
     return new Promise(function(resolve, reject) {
