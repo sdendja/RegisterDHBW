@@ -13,7 +13,6 @@ $(document).ready(function() {
             const balanceUrl = origin + "/balance?walletaddress=" + walletaddress;
             $.ajax(balanceUrl, {url: '/balance'}).then(function(res) {
 
-
                 let status = res.payload
                 console.log(status)
                 if(status.length != 0 ) {
@@ -35,25 +34,14 @@ $(document).ready(function() {
                             
                         }
                         alert(alertText)
-                        alert( <ul>
-                            <li>Coffee</li>
-                            <li>Tea</li>
-                            <li>Milk</li>
-                          </ul> )
-                    
                 }
                 else{
                     alert("kein Guthaben vorhanden")
                 }
-                
-                
             })
-
             return false
-        })
-            
+        })   
     })
-        
 })
 
 $(document).ready(function() {
