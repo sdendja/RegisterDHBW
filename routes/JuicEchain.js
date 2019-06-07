@@ -1,7 +1,6 @@
 const CryptoUtils = require("./CryptoUtil").CryptoUtils;
 let rp = require('request-promise');
 
-
 class JuicEchain{
 
     transfer(address, assetName){
@@ -40,8 +39,7 @@ class JuicEchain{
         });
     }
 
-
-    wallet(){
+    wallet(req){
         
         const self = this;
         return new Promise(function(resolve, reject){
@@ -65,8 +63,6 @@ class JuicEchain{
         });
 
     }
-
-    
 
     asset(assetName){
         const self = this;
@@ -161,9 +157,6 @@ class JuicEchain{
     }
 
 }
-
-
-
 
 exports.JuicEchain = JuicEchain;
 

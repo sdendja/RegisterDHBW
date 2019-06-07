@@ -1,20 +1,18 @@
-html {
-    font-size: 14px;
-  }
-  @media (min-width: 768px) {
-    html {
-      font-size: 16px;
-    }
-  }
-  
-  .container {
-    max-width: 960px;
-  }
-  
-  .pricing-header {
-    max-width: 700px;
-  }
-  
-  .card-deck .card {
-    min-width: 220px;
-  }
+body { 
+  padding-top: 65px; 
+  background-color: #f0f2f2;
+}
+
+body#home a#home,
+body#booking a#booking,
+body#balance a#balance,
+body#create a#create,
+body#entry a#entry,
+body#userlist a#userlist {
+    color: #fff;
+    background: rgb(85, 84, 84);
+}
+
+
+
+

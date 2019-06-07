@@ -1,46 +1,27 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= title %></title>
+    <title>Balance & Transfer</title>
+    <link rel='stylesheet' href='/stylesheets/custom.css' />
     
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-    <!-- Bootstrap core CSS -->
-    <link href="stylesheets/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom styles for this template -->
-    <link href="stylesheets/dashboard.css" rel="stylesheet">
   </head>
-  <body>
-
-      <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3">
-          <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-              <a class="navbar-brand col-sm-2 col-md-4 mr-0" href="#">Book your Ticket</a>
-              <a class="p-2 text-white" href="/">Sign up</a>
-              <a class="p-2 text-white" href="/booking">Booking</a>
-              <a class="p-2 text-white" href="/requests">Balance & Transfer</a>
-              <a class="p-2 text-white" href="/createAssets">Create Asset</a>
-              <a class="p-2 text-white" href="/userlist">DB Userlist</a>
-              <a class="p-2 text-white" href="/entry">Event entry</a>
-              <ul class="navbar-nav px-5"></ul>
-              </ul>
-          </nav>
-      </div>
-    
-      <main role="main" class="col-md-12 ml-sm-auto col-lg-14 px-4">
+  <body class="text-center" id="balance">
+      <div class="container-fluid">
+        <p class="lead">Check out your Walletbalance or<br> transfer Assets to other users</p>
         <div class="form-group row">
-            <button id="btnBalance" class="col-sm-3 col-form-label" type="submit">Wallet Balance</button>
+            <button id="btnBalance" class="btn btn-primary btn-block" type="submit">Wallet Balance</button>
             &nbsp;
-            <input id="inputUserEmail1" type="text" placeholder="Type in your Email" name="Email1" required/>
+            <input id="inputUserEmail1" class="form-control" type="text" placeholder="Type in your Email" name="Email1" required/>
         </div>
-  
+        &nbsp;
         <div class="form-group row">
-          <button id="btnTransfer" class="col-sm-3 col-form-label" type="submit">Transefer to:</button>
+          <button id="btnTransfer" class="btn btn-primary btn-block" type="submit">Transefer to:</button>
           &nbsp;
-          <input id="inputAssetName" type="text" placeholder="Type in the assetname" name="assetName" required />
-          &nbsp;
-          <input id="inputUserEmail2" type="text" placeholder="Type in your Email" name="Email2" required />
+          <input id="inputAssetName" class="form-control" type="text" placeholder="Type in the assetname" name="assetName" required />
+        
+          <input id="inputUserEmail2" class="form-control" type="text" placeholder="Type in your Email" name="Email2" required />
         </div>
-      </main>
+    </div>
     
      
 
@@ -57,7 +38,6 @@
 			  crossorigin="anonymous"></script>
    <!-- <script src="javascripts/jquery.min.js"></script> -->
     <script src="javascripts/bootstrap.min.js"></script>
-	  <script src="javascripts/registrierung.js"></script>
     <script src="javascripts/Ajax.js"></script>
   </body>
 </html>

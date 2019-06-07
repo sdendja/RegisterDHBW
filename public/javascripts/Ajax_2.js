@@ -55,8 +55,7 @@ $(document).ready(function() {
             const transferUrl = origin + "/transfer?walletaddress=" + walletaddress + "&inputAssetName=" + inputAssetName;
             $.ajax(transferUrl).then(function(res) {
                 console.log(res)
-                console.log("log")
-            
+
                 const success = res.payload.success
                 const error = res.payload.error;
                 

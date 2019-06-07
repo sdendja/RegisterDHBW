@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport">
+    <title>Signin</title>
+
+    <!-- Custom styles for this template -->
+    <link rel='stylesheet' href='/stylesheets/custom.css' />
+    
+  </head>
+
+  <body class="text-center">
+    <form class="form-signin" id="formAddUser" name="form" method="post" action="/users/adduser"> 
+        
+        <h1 class="h3 mb-3 font-weight-normal">Please sign up</h1>
+
+        <label for="inputEmail" class="sr-only">Email address</label>
+        <input type="email" id="inputEmail" name="email" class="form-control" placeholder="Email address" required autofocus>
+          
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Password" required>
+
+        <label for="inputPassword2" class="sr-only">Password</label>
+        <input type="password" id="inputPassword2" name="password2" class="form-control" placeholder="Confirm password" required>
+      
+        <button id="btnRegister" class="btn btn-primary btn-block" type="submit" onclick="return starteRegistrierung()">Register </button>
+      
+    </form>
+
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script
+    src="https://code.jquery.com/jquery-3.4.1.min.js"
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+    crossorigin="anonymous">
+    </script>
+
+    <script src="/javascripts/jquery-slim.min.js"></script>
+    <script src="/javascripts/bootstrap.min.js"></script>
+	  <script src="/javascripts/registrierung.js"></script>
+  </body>
+</html>
+
+

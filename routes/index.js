@@ -1,84 +1,22 @@
 var express = require('express');
 var router = express.Router();
-const JuicEchain = require("./JuicEchain").JuicEchain;
-let rp = require('request-promise');
+var JuicEchain = require("./JuicEchain").JuicEchain;
+var rp = require('request-promise');
+var passport = require('passport');
 
-router.get('/', function(req, res, next) {
-  res.render('anmeldung', { title: 'Anmeldung' });
-});
 
-router.get('/requests', function(req, res) {
-    res.render('requests', { title: 'Requests try it out' });
-  });
-  
-  /* GET Userlist page. */
-  router.get('/userlist', function(req, res) {
+/* GET Userlist page. */
+router.get('/userlist', function(req, res) {
     var db = req.db;
-    var collection = db.get('usercollectionMark3');
+    var collection = db.get('usercollectionMark6');
     collection.find({},{},function(e,docs){
         res.render('userlist', {
             "userlist" : docs
         });
     });
-  });
-
-router.get('/booking', function(req, res) {
-    res.render('booking', { title: 'Book your ticket! try it out' });
-  });
-
-router.get('/createAssets', function(req, res) {
-    res.render('createAssets', { title: 'Create your Assets! try it out' });
-  });
-
-router.get('/entry', function(req, res) {
-    res.render('entry', { title: 'Entry event' });
-  });
+});
 
 //---------Requests---------------------------------------------------------------------------------------------------
-
-router.post('/adduser', function(req, res) {
-    
-        const juicechain = new JuicEchain();
-    
-        juicechain.wallet().then((register) => {
-    
-            // Set our internal DB variable
-    
-            var walletaddress = register.payload.address;  
-    
-            // Set our internal DB variable
-    
-            var db = req.db;
-    
-            // Get our form values. These rely on the "name" attributes
-    
-            var userEmail = req.body.useremail;
-            var userWallet = walletaddress;
-                
-            // Set our collection
-            var collection = db.get('usercollectionMark3');   
-    
-            // Submit to the DB register data
-            collection.insert({      
-                    
-                "useremail" : userEmail,
-                "userwallet" : userWallet,
-                    
-            }, function (err, doc) {
-                if (err) {
-                    // If it failed, return error
-                    res.send("There was a problem adding the information to the database.");
-                }
-                else {
-
-                    // And forward to success page
-                    const userlistURL = "/booking?address=" + walletaddress;
-                    res.redirect(userlistURL);
-                }
-            });
-    
-        });
-    })
 
 router.get('/asset', function(req, res){
 
@@ -136,11 +74,10 @@ router.get('/db_information', function(req, res){
     var userEmail = req.query.inputUserEmail
 
     // Set our internal DB variable
-        
     var db = req.db;
    
     // Set our collection
-    var collection = db.get('usercollectionMark3');
+    var collection = db.get('usercollectionMark6');
         
     // Submit to the DB register data
 
@@ -150,6 +87,7 @@ router.get('/db_information', function(req, res){
             res.send("There was a problem adding the information to the database.")
         }
         else{
+            
             const userwallet = result[0].userwallet
     
             console.log(userwallet);
@@ -160,6 +98,17 @@ router.get('/db_information', function(req, res){
     })
     
 });
+
+router.get('/', ensureAuthenticated, function(req, res, next){
+    res.render('index')
+  })
+  
+  function ensureAuthenticated(req, res, next){
+    if(req.isAuthenticated()){
+      return next
+    }
+    res.redirect('useres/login')
+  }
 
 //------------------------------------------------------
 
@@ -185,5 +134,39 @@ const requestToken = function(){
 
     });
 }
+
+
+  router.post('/login', function(req, res){
+
+    var useremail = req.body.email
+    var userpassword = req.body.password
+
+    // Set our internal DB variable
+    var db = req.db;
+   
+    // Set our collection
+    var collection = db.get('usercollectionMark6');
+        
+    // Submit to the DB register data
+
+    collection.findOne({"useremail": useremail}, function(err, result){
+
+        if(err){
+            res.send("There was a problem adding the information to the database.")
+        }
+        else{
+
+            
+        
+    
+            console.log(result);
+            
+            
+        }
+       
+    })
+    
+});
+
 
 module.exports = router

@@ -2,36 +2,23 @@
 <html>
   <head>
 
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-    <!-- Bootstrap core CSS -->
-    <link href="stylesheets/bootstrap.min.css" rel="stylesheet">
+    <title>Create Assets</title>
+    <link rel='stylesheet' href='/stylesheets/custom.css' />
 
-    <!-- Custom styles for this template -->
-    <link href="stylesheets/dashboard.css" rel="stylesheet">
   </head>
-  <body>
-      <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3">
-          <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-              <a class="navbar-brand col-sm-2 col-md-4 mr-0" href="#">Book your Ticket</a>
-              <a class="p-2 text-white" href="/">Sign up</a>
-              <a class="p-2 text-white" href="/booking">Booking</a>
-              <a class="p-2 text-white" href="/requests">Balance & Transfer</a>
-              <a class="p-2 text-white" href="/createAssets">Create Asset</a>
-              <a class="p-2 text-white" href="/userlist">DB Userlist</a>
-              <a class="p-2 text-white" href="/entry">Event entry</a>
-              <ul class="navbar-nav px-5"></ul>
-              </ul>
-          </nav>
-      </div>
+  
+  <body class="text-center" id="create">
 
-    <main role="main" class="col-md-12 ml-sm-auto col-lg-14 px-4">
-        <div class="form-group row">
-            <button id="btnCreateAsset" class="col-sm-2 col-form-label">Create Asset</button>
-             &nbsp;
-            <input id="inputAssetName" type="text" placeholder="someAssetName" name="assetName"/>
-        </div>
-    </main>
+    <div class="container-fluid">
+      <p class="lead">Create an Asset.</p>
+      <main role="main" class="col-md-12 ml-sm-auto col-lg-14 px-4">
+          <div class="form-group row">
+              <button  class="btn btn-primary btn-block" type="submit" id="btnCreateAsset" class="col-sm-2 col-form-label">Create Asset</button>
+              &nbsp;
+              <input class="form-control" id="inputAssetName" type="text" placeholder="someAssetName" name="assetName"/>
+          </div>
+      </main>
+    </div>
 
     <!-- Bootstrap core JavaScript
     ================================================== -->

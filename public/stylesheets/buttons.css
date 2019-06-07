@@ -1,0 +1,15 @@
+ /*Mailu*/
+ div {
+    padding: 1px 0;
+   }
+    #header {
+        background: #DDDDDD;
+        
+    }
+
+    #footer {
+        clear: both;
+        background: #DDDDDD;
+    }
+/*add css as suggested here https://stackoverflow.com/a/2038374/2941758*/
+    button{display:block;}
