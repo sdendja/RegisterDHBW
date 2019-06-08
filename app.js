@@ -14,17 +14,45 @@ var upload = multer({dest: './uploads'});
 var flash = require('connect-flash');
 var bcrypt = require('bcryptjs')
 var mongo = require('mongodb');
+var mongoose = require('mongoose');
+var db = mongoose.connection;
 var bodyParser = require('body-parser');
 var expressLayouts = require('express-ejs-layouts')
 
 var app = express();
 
-// New Code
+//---Database via Monk----
 var monk = require('monk');
 var db = monk('localhost:27017/nodetest1');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var authRouter = require('./routes/auth')
+
+
+
+require('./config/passport')(passport);
+app.use(logger('dev'));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
+
+//make flash work
+app.use(cookieParser());
+app.use(bodyParser.urlencoded({extended: false}));
+//Handle Sessions
+app.use(session({
+  secret:'secret',
+  saveUninitialized: true,
+  resave: true
+}));
+
+// Passport
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(flash());
+
+//-----------------------------------------------------------------------------------------
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -58,47 +86,6 @@ app.get('/requests', function(req, res) {
   res.render('requests');
 });
 
-
-//Handle Sessions
-app.use(session({
-  secret:'secret',
-  saveUninitialized: true,
-  resave: true
-
-}));
-
-// Passport
-app.use(passport.initialize());
-app.use(passport.session());
-
-//Validator
-app.use(expressValidator({
-  errorFormatter: function(param, msg, value) {
-      var namespace = param.split('.')
-      , root    = namespace.shift()
-      , formParam = root;
-
-    while(namespace.length) {
-      formParam += '[' + namespace.shift() + ']';
-    }
-    return {
-      param : formParam,
-      msg   : msg,
-      value : value
-    };
-  }
-}));
-
-app.use(require('connect-flash')());
-app.use(function (req, res, next) {
-  res.locals.messages = require('express-messages')(req, res);
-  next();
-});
-
-app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Make our db accessible to our router
@@ -109,6 +96,7 @@ app.use(function(req,res,next){
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/auth', authRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -126,4 +114,6 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+//-----------------------------------------------------------------------------------------
+require('./routes/auth')(app, passport)
 module.exports = app;

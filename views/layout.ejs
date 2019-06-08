@@ -62,7 +62,14 @@
                 </div>
             </div>
         </div> 
+        
+            <!-- show any messages that come back with authenticaton-->
     
+            <% if ('message.length' < 0) { %>
+                <div class="alert alert-danger"><%= mesage %></div>
+            <% } %>
+             
+        
     <%- body %>
 
     </body>

@@ -5,10 +5,11 @@ var rp = require('request-promise');
 var passport = require('passport');
 
 
+
 /* GET Userlist page. */
 router.get('/userlist', function(req, res) {
     var db = req.db;
-    var collection = db.get('usercollectionMark6');
+    var collection = db.get('users');
     collection.find({},{},function(e,docs){
         res.render('userlist', {
             "userlist" : docs
@@ -99,18 +100,8 @@ router.get('/db_information', function(req, res){
     
 });
 
-router.get('/', ensureAuthenticated, function(req, res, next){
-    res.render('index')
-  })
-  
-  function ensureAuthenticated(req, res, next){
-    if(req.isAuthenticated()){
-      return next
-    }
-    res.redirect('useres/login')
-  }
 
-//------------------------------------------------------
+
 
 const requestToken = function(){
     return new Promise(function(resolve, reject) {
@@ -134,39 +125,5 @@ const requestToken = function(){
 
     });
 }
-
-
-  router.post('/login', function(req, res){
-
-    var useremail = req.body.email
-    var userpassword = req.body.password
-
-    // Set our internal DB variable
-    var db = req.db;
-   
-    // Set our collection
-    var collection = db.get('usercollectionMark6');
-        
-    // Submit to the DB register data
-
-    collection.findOne({"useremail": useremail}, function(err, result){
-
-        if(err){
-            res.send("There was a problem adding the information to the database.")
-        }
-        else{
-
-            
-        
-    
-            console.log(result);
-            
-            
-        }
-       
-    })
-    
-});
-
 
 module.exports = router
