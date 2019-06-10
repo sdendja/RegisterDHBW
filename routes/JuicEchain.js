@@ -4,6 +4,7 @@ const rp = require('request-promise');
 
 class JuicEchain{    
 
+    // Mainwallet to User
     transfer(address, assetName){
 
         const self = this;
@@ -11,10 +12,7 @@ class JuicEchain{
 
             self.requestToken().then(function(token){
 
-
-
-                const sourceaddress = '"'+dynamicWallet+'"'
-                const sourceKey = '"'+dynamicPrivateKey+'"'
+                
 
                 const signature = CryptoUtils.generateAuthToken("L57eRseU9tRquYNWkWHZX4S1J8cnV6sGZ2h4tvnSt4jrES59zoqX", 
                 "12T6EhosKPhmpFpc4HAMxx2SwZHLoFmSvW", "", "");
@@ -29,44 +27,6 @@ class JuicEchain{
                 body: {
                     asset: assetName,
                     amount: 1,
-                    payload: ""
-                },
-                json: true
-                };
-
-                rp(options).then(result => {
-                    resolve(result);
-                    console.log(result);
-                });
-
-            });
-
-        });
-    }
-
-    transfermain(address, assetName){
-
-        const self = this;
-        console.log(address)
-        return new Promise(function(resolve, reject){
-
-            self.requestToken().then(function(token){
-                const sourceaddress = '"'+dynamicWallet+'"'
-                const sourceKey = '"'+dynamicPrivateKey+'"'
-                
-                const signature = CryptoUtils.generateAuthToken(sourceKey,
-                sourceaddress, "", "");
-    
-            let options = {
-                method: 'POST',
-                url: 'https://demo.juicechain.org/node/wallet/transfer/'+address,
-                headers: {
-                    'authorization': token.token,
-                    'signature': signature
-                },
-                body: {
-                    asset: assetName,
-                    amount: 2,
                     payload: ""
                 },
                 json: true
@@ -101,10 +61,8 @@ class JuicEchain{
                     console.log(result);
             
                 });
-
             });
         });
-
     }
 
     asset(assetName){
@@ -143,7 +101,6 @@ class JuicEchain{
                     resolve(result);
                     console.log(result);
                 });
-        
             });
         });
     }
@@ -169,11 +126,8 @@ class JuicEchain{
                     resolve(result);
                      
                 });
-        
             });
-
         });
-
     }
  
     requestToken(){
@@ -191,14 +145,11 @@ class JuicEchain{
                 },
                 json: true
             };
-
             rp(options).then(result => {
                 resolve(result);
             });
-
         });
     }
-
 }
 
 exports.JuicEchain = JuicEchain;

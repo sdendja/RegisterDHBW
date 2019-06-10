@@ -50,6 +50,7 @@ router.get('/asset', function(req, res){
   })
 });
 
+//User to User
 router.get('/transfer', function(req, res){
 
   var walletaddresstarget = req.query.walletaddresstarget;
@@ -63,6 +64,7 @@ router.get('/transfer', function(req, res){
   });
 });
 
+//Mainwallet to User
 router.get('/transfer2', function(req, res){
 
   var walletaddresstarget = dynamicWallet

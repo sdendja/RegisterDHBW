@@ -6,7 +6,6 @@ $(document).ready(function() {
             const buttons = document.querySelectorAll('#buttoncount')
             const loopvar = res.payload.length
 
-            
             for(i=loopvar, j=loopvar+1, k=1; i < buttons.length ;i++, j++, k++){
             
                 let button = "btnTicket"+j;
