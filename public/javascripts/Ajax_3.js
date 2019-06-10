@@ -1,14 +1,14 @@
 $(document).ready(function() {
     $(window.onload = function myButton() {
-        const balanceUrl = "/balance2"
+        const balanceUrl = "/balance2";
         $.ajax(balanceUrl).then(function(res) {
-            const buttons = document.querySelectorAll('#buttoncount')
+            
+            const buttons = document.querySelectorAll('#buttonentry')
             const loopvar = res.payload.length
-
             for(i=loopvar, j=loopvar+1, k=1; i < buttons.length ;i++, j++, k++){
             
-                let button = "btnTicket"+j;
-                let label = "label"+j
+                let button = "btnEntry"+j;
+                let label = "labelentry"+j
                 document.getElementById(button).disabled = true;
                 document.getElementById(button).style.visibility = 'hidden';  
                 document.getElementById(label).style.visibility = 'hidden';
@@ -16,15 +16,11 @@ $(document).ready(function() {
             }
             for(i=0, j=1; i<loopvar ; i++, j++){
                 let assetName = res.payload[i].name
-                let label = "label"+j
+                let label = "labelentry"+j
                 document.getElementById(label).innerHTML = assetName;
-
             }
-
         })
-        
     })
-    
 })
 
 $(document).ready(function() {
@@ -35,18 +31,16 @@ $(document).ready(function() {
         const origin = window.location.origin;
         const dbURL = origin + "/db_information?inputUserEmail=" + inputUserEmail;
         $.ajax(dbURL, {url: '/db_information'}).then(function(res) {
-            
-            const label = "label"+number
-            const walletaddress = res;
+            const label = "labelentry"+number
+            const walletaddress = res.walletcreated;
             const inputAssetName = document.getElementById(label).innerText
             const origin = window.location.origin;
-            const transferUrl = origin + "/balance?walletaddress=" + walletaddress + "&inputAssetName=" + inputAssetName;
-            console.log(inputAssetName)
-            $.ajax(transferUrl).then(function(res) {
+            const balanceUrl = origin + "/balance3?walletaddress=" + walletaddress + "&inputAssetName=" + inputAssetName;
+
+            $.ajax(balanceUrl).then(function(res) {
 
                 const loopvar = res.payload.length
                 const arrayVar = res.payload
-                
                 
                 let status = ""
 

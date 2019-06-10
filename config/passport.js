@@ -1,51 +1,43 @@
-var express = require('express');
-var passport = require('passport');
-var LocalStrategy = require('passport-local').Strategy
-var User = require('../models/user')
-var flash = require('connect-flash');
-var app = express();
+const LocalStrategy = require('passport-local').Strategy;
+const bcrypt = require('bcryptjs');
 
+// Load User model
+const User = require('../models/User');
 
+module.exports = function(passport) {
+  passport.use(
+    new LocalStrategy({ usernameField: 'email' }, (email, password, done) => {
+      // Match user
+      User.findOne({
+        email: email
+      }).then(user => {
+        if (!user) {
+          return done(null, false, { message: 'That email is not registered' });
+        } 
 
+        // Match password
+        bcrypt.compare(password, user.password, (err, isMatch) => {
+          if (err) throw err;
+          if (isMatch) {
+            global.dynamicWallet = user.walletcreated
+            global.dynamicPrivateKey= user.privateKey
 
-module.exports= function(passport){
-
-    passport.serializeUser(function(user, done) {
-      done(null, user.id);
-    });
-    
-    passport.deserializeUser(function(id, done) {
-      User.findById(id, function(err, user) {
-        done(err, user);
+            return done(null, user);
+          } else {
+            return done(null, false, { message: 'Password incorrect' });
+          }
+        });
       });
-    });
-  
-  passport.use('local-singup', new LocalStrategy({
-    usernamefield: 'email',
-    passwordfield: 'password',
-    passReqToCallback: true
-  },
-  function(req, email, password, done){
-    process.nextTick(function(){
-      User.findOne({'local.username': email}, function(err, user){
-        if(err)
-        return done(err);
-        if(user){
-          return done(null, false, req.flash('message', 'That email already taken'));
-        } else{
-          var newUser = new User();
-          newUser.local.username = email;
-          newUser.local.password = password;
-  
-          newUser.save(function(err){
-            if(err)
-              throw err;
-            return done(null, newUser);
-          })
-        }
-      })
     })
-  }
-  ))
-  
-}
+  );
+
+  passport.serializeUser(function(user, done) {
+    done(null, user.id);
+  });
+
+  passport.deserializeUser(function(id, done) {
+    User.findById(id, function(err, user) {
+      done(err, user);
+    });
+  });
+};

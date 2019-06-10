@@ -1,129 +1,129 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 var JuicEchain = require("./JuicEchain").JuicEchain;
 var rp = require('request-promise');
-var passport = require('passport');
+const { ensureAuthenticated, forwardAuthenticated } = require('../config/auth');
+const User = require('../models/User');
 
+// Welcome Page
+router.get('/', forwardAuthenticated, (req, res) => res.render('welcome'));
 
-
-/* GET Userlist page. */
-router.get('/userlist', function(req, res) {
-    var db = req.db;
-    var collection = db.get('users');
-    collection.find({},{},function(e,docs){
-        res.render('userlist', {
-            "userlist" : docs
-        });
-    });
+// GET Userlist page.
+router.get('/userlist', ensureAuthenticated, function(req, res) {
+  User.find({},{},function(e, docs){
+      res.render('userlist', {
+          "userlist" : docs
+      });
+  });
 });
 
+// Booking page
+router.get('/booking', ensureAuthenticated, function(req, res) {
+  res.render('booking');
+});
+
+//Enter page
+router.get('/entry', function(req, res) {
+  res.render('entry');
+});
+
+//Create Assets page
+router.get('/createAssets', ensureAuthenticated, function(req, res) {
+  res.render('createAssets');
+});
+
+//Get Balance and post Transfer page
+router.get('/requests', ensureAuthenticated, function(req, res) {
+  res.render('requests');
+});
 //---------Requests---------------------------------------------------------------------------------------------------
 
 router.get('/asset', function(req, res){
 
-    let assetName = req.query.assetName;
+  let assetName = req.query.assetName;
 
-    const juicechain = new JuicEchain();
+  const juicechain = new JuicEchain();
 
-    juicechain.asset(assetName).then(function(asset){
+  juicechain.asset(assetName).then(function(asset){
 
-        res.send(asset);
-    })
+      res.send(asset);
+  })
 });
 
 router.get('/transfer', function(req, res){
 
-    var walletaddress = req.query.walletaddress;
-    var assetName = req.query.inputAssetName;
+  var walletaddresstarget = req.query.walletaddresstarget;
+  var assetName = req.query.inputAssetName;
 
-    const juicechain = new JuicEchain();
+  const juicechain = new JuicEchain();
 
-    juicechain.transfer(walletaddress, assetName).then(function(transfer){
+  juicechain.transfer(walletaddresstarget, assetName).then(function(transfer){
 
-        res.send(transfer);
-    });
+      res.send(transfer);
+  });
+});
+
+router.get('/transfer2', function(req, res){
+
+  var walletaddresstarget = dynamicWallet
+  var assetName = req.query.inputAssetName;
+
+  const juicechain = new JuicEchain();
+
+  juicechain.transfer(walletaddresstarget, assetName).then(function(transfer){
+
+      res.send(transfer);
+  });
 });
 
 router.get('/balance', function(req, res){
+   
+  const juicechain = new JuicEchain();
 
-    var walletaddress = req.query.walletaddress; 
-
-    const juicechain = new JuicEchain();
-
-    juicechain.balance(walletaddress).then(function(balance){
-         
-        res.send(balance);
-        
-    });
+  juicechain.balance(dynamicWallet).then(function(balance){
+       
+      res.send(balance);
+      
+  });
 });
 
 router.get('/balance2', function(req, res){
 
-    var test1 = "12T6EhosKPhmpFpc4HAMxx2SwZHLoFmSvW"
+  const mainwallet = "12T6EhosKPhmpFpc4HAMxx2SwZHLoFmSvW"
 
-    const juicechain = new JuicEchain();
-    
-    juicechain.balance(test1).then(function(balance){
-                    
-        res.send(balance);
-                
-    });
+  const juicechain = new JuicEchain();
+  
+  juicechain.balance(mainwallet).then(function(balance){
+                  
+      res.send(balance);
+              
+  });
+});
+
+router.get('/balance3', function(req, res){
+
+  var walletaddress = req.query.walletaddress;
+
+  const juicechain = new JuicEchain();
+  
+  juicechain.balance(walletaddress).then(function(balance){
+                  
+      res.send(balance);
+              
+  });
 });
 
 router.get('/db_information', function(req, res){
 
-    var userEmail = req.query.inputUserEmail
-
-    // Set our internal DB variable
-    var db = req.db;
-   
-    // Set our collection
-    var collection = db.get('usercollectionMark6');
+  var userEmail = req.query.inputUserEmail
+  
+  
+  User.findOne({ email: userEmail },{}, function(err, result){
         
-    // Submit to the DB register data
-
-    collection.find({"useremail": userEmail}, function(err, result){
-
-        if(err){
-            res.send("There was a problem adding the information to the database.")
-        }
-        else{
-            
-            const userwallet = result[0].userwallet
-    
-            console.log(userwallet);
-            
-            res.send(userwallet);
-        }
-       
-    })
-    
+        res.send(result)
+  })
 });
 
 
 
-
-const requestToken = function(){
-    return new Promise(function(resolve, reject) {
-
-        let options = {
-            method: 'POST',
-            url: 'https://demo.juicechain.org/node/auth',
-            headers: {
-                'authorization': 'none'
-            },
-            body: {
-                username: "none",
-                password: "none"
-            },
-            json: true
-        };
-
-        rp(options).then(result => {
-            resolve(result);
-        });
-
-    });
-}
-
-module.exports = router
+module.exports = router;

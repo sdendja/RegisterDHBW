@@ -1,17 +1,16 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
 
-<head>
-	
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-        
-        <link href="/stylesheets/bootstrap2.min.css" rel="stylesheet">
-        <link href="/stylesheets/navbar.css" rel="stylesheet">   
-        
-    </head>
+    <link rel="stylesheet" href="/stylesheets/bootstrap2.min.css">
+    <link rel="stylesheet" href="/stylesheets/navbar.css"> 
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <link rel="stylesheet" href="/stylesheets/custom.css">
+
+  </head>
     <body>
         
             <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -62,19 +61,14 @@
                 </div>
             </div>
         </div> 
-        
-            <!-- show any messages that come back with authenticaton-->
-    
-            <% if ('message.length' < 0) { %>
-                <div class="alert alert-danger"><%= mesage %></div>
-            <% } %>
-             
-        
+                
     <%- body %>
 
-    </body>
-
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="crossorigin="anonymous"></script>
+    <script src="/javascripts/popper.min.js"></script>
+    <script src="/javascripts/bootstrap.min.js"></script>
+    <script src="/javascripts/Ajax.js"></script>
+    
+    
+  </body>
 </html>
-
-
-	

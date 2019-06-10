@@ -1,32 +1,24 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport">
-    <title>Signin</title>
 
-    <!-- Custom styles for this template -->
-    <link rel='stylesheet' href='/stylesheets/custom.css' />
-    
-  </head>
 
-  <body class="text-center">
-      <form class="form-signin" id="formLogin" name="form" method="post" action="/users/login"> 
-        
-        <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-        
-        <label for="inputEmail" class="sr-only">Email address</label>
-        <input type="email" id="inputEmail" class="form-control" name="email" placeholder="Email address" required autofocus>
-        
-        <label for="inputPassword" class="sr-only">Password</label>
-        <input type="password" id="inputPassword" class="form-control" name="password" placeholder="Password" required>
+<form class="form-signin" method="post" action="/users/login"> 
   
-        <button class="btn btn-primary btn-block" type="submit">Sign in</button>
-    </form>
+  <% include ./partials/messages %>
+  
+  <h1 class="h3 mb-3 font-weight-normal text-center">Please sign in</h1>
 
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="/javascripts/jquery-slim.min.js"></script>
-    <script src="/javascripts/bootstrap.min.js"></script>
-	<script src="/javascripts/registrierung.js"></script>
-  </body>
-</html>
+  <div class="form-group">
+    <label for="inputEmail" class="sr-only">Email address</label>
+    <input type="email" id="email" name="email" class="form-control" placeholder="Enter Email" value="<%= typeof email != 'undefined' ? email : '' %>"/>
+  </div>
+
+  <div class="form-group"></div>
+    <label for="inputPassword" class="sr-only">Password</label>
+    <input type="password" id="password" name="password" class="form-control" placeholder="Create Password" value="<%= typeof password != 'undefined' ? password : '' %>"/>
+  </div>
+
+  <button type="submit" class="btn btn-primary btn-block">Login</button>
+  </div>
+  <p class="lead mt-4 text-center">
+        No Account? <a href="/users/register">Register</a>
+  </p>
+</form>

@@ -1,87 +1,51 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Booking</title>
-   
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-    
-  </head>
-  <body class="text-center" id="booking">
-   
-    <div class="container-fluid" >
-        <div class="form-group row">
-            <label id="label0">Your Email:</label>
-            <input id="inputUserEmail" class="form-control" type="text" placeholder="Enter E-Mail" name="emailName" required/>
-        </div>
+<div class="container-fluid text-center margin-book" >
 
-        <div id="buttoncount" name="button1" class="form-group row">
-            <label id="label1">Slot 1:</label>
-            <div>
-            <button id="btnTicket1" class="btn btn-primary btn-block" type="submit" name="btnTicket1">Book now!</button>
-            </div>
-        </div>
-
-        <div id="buttoncount" name="button2" class="form-group row">
-            <label id="label2" >Slot 2:</label>
-            <button id="btnTicket2" class="btn btn-primary btn-block" type="submit" name="btnTicket2">Book now!</button>
-        </div>
-   
-        <div id="buttoncount" name="button3" class="form-group row">
-            <label id="label3" >Slot 3:</label>
-            <button id="btnTicket3" class="btn btn-primary btn-block" type="submit" name="btnTicket3">Book now!</button>
-        </div>
-    
-        <div id="buttoncount" name="button4" class="form-group row">
-            <label id="label4">Slot 4:</label>
-            <button id="btnTicket4" class="btn btn-primary btn-block" type="submit" name="btnTicket4">Book now!</button>
-        </div>
-
-        <div id="buttoncount" name="button5" class="form-group row">
-            <label id="label5" >Slot 5:</label>
-            <button id="btnTicket5" class="btn btn-primary btn-block" type="submit" name="btnTicket5">Book now!</button>
-        </div>
-
-        <div id="buttoncount" name="button6" class="form-group row">
-            <label id="label6">Slot 6:</label>
-            <button id="btnTicket6" class="btn btn-primary btn-block" type="submit" name="btnTicket6">Book now!</button>
-        </div>
-
-        <div id="buttoncount" name="button7" class="form-group row">
-            <label id="label7">Slot 7:</label>
-            <button id="btnTicket7" class="btn btn-primary btn-block" type="submit" name="btnTicket7">Book now!</button>
-        </div>
+    <div id="buttonbook"  class="form-group row">
+        <p class="lead">Book your ticket below</p>
+        <label id="label1">Slot 1:</label>
+        <button id="btnTicket1" class="btn btn-primary btn-block" type="submit">Book now!</button>
     </div>
 
-        
+    <div id="buttonbook" class="form-group row">
+        <label id="label2" >Slot 2:</label>
+        <button id="btnTicket2" class="btn btn-primary btn-block" type="submit">Book now!</button>
+    </div>
 
-        
+    <div id="buttonbook"  class="form-group row">
+        <label id="label3" >Slot 3:</label>
+        <button id="btnTicket3" class="btn btn-primary btn-block" type="submit">Book now!</button>
+    </div>
 
-            
+    <div id="buttonbook" class="form-group row">
+        <label id="label4">Slot 4:</label>
+        <button id="btnTicket4" class="btn btn-primary btn-block" type="submit">Book now!</button>
+    </div>
 
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-   
-    <script type="text/javascript">
-        window.onload = function (address) {
-        if (window.location.search != '')
-           var url = window.location.search;
-              var walletaddress = url.replace('?address=', '');
-                 
-                 alert("Ihre Walletadresse ist: " + walletaddress)
-        }
-    </script>
+    <div id="buttonbook" class="form-group row">
+        <label id="label5" >Slot 5:</label>
+        <button id="btnTicket5" class="btn btn-primary btn-block" type="submit">Book now!</button>
+    </div>
 
+    <div id="buttonbook" class="form-group row">
+        <label id="label6">Slot 6:</label>
+        <button id="btnTicket6" class="btn btn-primary btn-block" type="submit">Book now!</button>
+    </div>
 
+    <div id="buttonbook" class="form-group row">
+        <label id="label7">Slot 7:</label>
+        <button id="btnTicket7" class="btn btn-primary btn-block" type="submit">Book now!</button>
+    </div>
 
-    <script
-			  src="https://code.jquery.com/jquery-3.4.1.min.js"
-			  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-              crossorigin="anonymous">
-    </script>
+    <div id="buttonbook" class="form-group row">
+        <label id="label8">Slot 8:</label>
+        <button id="btnTicket8" class="btn btn-primary btn-block" type="submit">Book now!</button>
+    </div>
 
-   <!-- <script src="javascripts/jquery.min.js"></script> -->
-    <script src="javascripts/bootstrap.min.js"></script>
-    <script src="javascripts/Ajax_2.js"></script>
-  </body>
-</html>
+    <div id="buttonbook" class="form-group row">
+        <label id="label9">Slot 9:</label>
+        <button id="btnTicket9" class="btn btn-primary btn-block" type="submit">Book now!</button>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="crossorigin="anonymous"></script>
+    <script src="/javascripts/Ajax_2.js"></script>

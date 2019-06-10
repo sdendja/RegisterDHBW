@@ -1,18 +1,61 @@
+const express = require('express');
 const CryptoUtils = require("./CryptoUtil").CryptoUtils;
-let rp = require('request-promise');
+const rp = require('request-promise');
 
-class JuicEchain{
+class JuicEchain{    
 
     transfer(address, assetName){
+
+        const self = this;
+        return new Promise(function(resolve, reject){
+
+            self.requestToken().then(function(token){
+
+
+
+                const sourceaddress = '"'+dynamicWallet+'"'
+                const sourceKey = '"'+dynamicPrivateKey+'"'
+
+                const signature = CryptoUtils.generateAuthToken("L57eRseU9tRquYNWkWHZX4S1J8cnV6sGZ2h4tvnSt4jrES59zoqX", 
+                "12T6EhosKPhmpFpc4HAMxx2SwZHLoFmSvW", "", "");
+    
+            let options = {
+                method: 'POST',
+                url: 'https://demo.juicechain.org/node/wallet/transfer/'+address,
+                headers: {
+                    'authorization': token.token,
+                    'signature': signature
+                },
+                body: {
+                    asset: assetName,
+                    amount: 1,
+                    payload: ""
+                },
+                json: true
+                };
+
+                rp(options).then(result => {
+                    resolve(result);
+                    console.log(result);
+                });
+
+            });
+
+        });
+    }
+
+    transfermain(address, assetName){
 
         const self = this;
         console.log(address)
         return new Promise(function(resolve, reject){
 
             self.requestToken().then(function(token){
-
-                const signature = CryptoUtils.generateAuthToken("L57eRseU9tRquYNWkWHZX4S1J8cnV6sGZ2h4tvnSt4jrES59zoqX",
-                "12T6EhosKPhmpFpc4HAMxx2SwZHLoFmSvW", "", "");
+                const sourceaddress = '"'+dynamicWallet+'"'
+                const sourceKey = '"'+dynamicPrivateKey+'"'
+                
+                const signature = CryptoUtils.generateAuthToken(sourceKey,
+                sourceaddress, "", "");
     
             let options = {
                 method: 'POST',
