@@ -41,7 +41,7 @@ $(document).ready(function() {
               }else{
                   
                   if(res.email != inputUserEmail){
-                      alert("Unknown Email. Check")
+                      alert("Unknown Email. Check you input")
                   }else{
                       
 
