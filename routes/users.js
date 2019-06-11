@@ -54,14 +54,10 @@ router.post('/register', (req, res) => {
         const juicechain = new JuicEchain();
         juicechain.wallet().then((register) => {
 
-        console.log(register.payload.address)
         let walletcreated = register.payload.address
         let privateKey = register.payload.privateKey
         let publicKey = register.payload.publicKey
         let created = register.payload.created
-        
-        
-      
        
         const newUser = new User({
   
@@ -84,25 +80,23 @@ router.post('/register', (req, res) => {
                   'You are now registered and can login. ',
                   'Your walletaddress is: ' + walletcreated
                 );
-                
-              
-                res.redirect('/users/login');
-                
+                res.redirect('/users/login');  
               })
               .catch(err => console.log(err));
           });
         });
       })}
     });
-}});
+  }
+});
 
 // Login
 router.post('/login', (req, res, next) => {
   passport.authenticate('local', {
-    successRedirect: '/booking',
+    successRedirect: '/welcome2',
     failureRedirect: '/users/login',
     failureFlash: true
-  })(req, res, next);    
+  })(req, res, next);
 });
 
 // Logout
@@ -111,11 +105,5 @@ router.get('/logout', ensureAuthenticated2, (req, res) => {
   req.flash('success_msg', 'You are logged out');
   res.redirect('/users/login');
 });
-
-
-
-
-
-
 
 module.exports = router;

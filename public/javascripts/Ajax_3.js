@@ -17,7 +17,10 @@ $(document).ready(function() {
             for(i=0, j=1; i<loopvar ; i++, j++){
                 let assetName = res.payload[i].name
                 let label = "labelentry"+j
-                document.getElementById(label).innerHTML = assetName;
+                document.getElementById(label).innerHTML = assetName.substr(5);
+            }
+            if(loopvar == 0){
+                alert("No Tickets to enter available ")
             }
         })
     })
@@ -31,62 +34,55 @@ $(document).ready(function() {
         const origin = window.location.origin;
         const dbURL = origin + "/db_information?inputUserEmail=" + inputUserEmail;
         $.ajax(dbURL, {url: '/db_information'}).then(function(res) {
-            const label = "labelentry"+number
-            const walletaddress = res.walletcreated;
-            const inputAssetName = document.getElementById(label).innerText
-            const origin = window.location.origin;
-            const balanceUrl = origin + "/balance3?walletaddress=" + walletaddress + "&inputAssetName=" + inputAssetName;
-
-            $.ajax(balanceUrl).then(function(res) {
-
-                const loopvar = res.payload.length
-                const arrayVar = res.payload
+           
+            if(!res){
+                alert("Unknown Email")
                 
-                let status = ""
+              }else{
+                  
+                  if(res.email != inputUserEmail){
+                      alert("Unknown Email. Check")
+                  }else{
+                      
 
-                if(loopvar == 0){
-                    alert("Sie haben keine Tickets auf Ihrem Konto. Überprüfen Sie die Eingabe")
-                }
-                else{
-                    for(i=0; i<loopvar; i++){
-                        console.log(i)
-                        console.log(arrayVar[i].name)
-                        if(arrayVar[i].name == inputAssetName){
-                            
-                            status = true
-                            message ="Entrance approved"
-                            break;
-                            
+                    const label = "labelentry"+number
+                    const walletaddress = res.walletcreated;
+                    const inputAssetName = "demo:"+document.getElementById(label).innerText
+                    const origin = window.location.origin;
+                    const balanceUrl = origin + "/balance3?walletaddress=" + walletaddress + "&inputAssetName=" + inputAssetName;
+                    $.ajax(balanceUrl).then(function(res) {
+
+                        const loopvar = res.payload.length
+                        const arrayVar = res.payload
+                        
+                        let status = ""
+
+                        if(loopvar == 0){
+                            alert("Sie haben keine Tickets auf Ihrem Konto. Überprüfen Sie die Eingabe")
                         }
                         else{
-                            
-                            status = false
-                            message ="Entrance denied"
-
-                        }
+                            for(i=0; i<loopvar; i++){
+                                if(arrayVar[i].name == inputAssetName){
                         
-                    }
-                    console.log(status)
-                    alert(message)
+                                    status = true
+                                    message ="Entrance approved"
+                                    break;
+                                }
+                                else{
+                                    status = false
+                                    message ="Entrance denied"
+                                }
+                            }
+                            alert(message)
+                        }
+                    })
+                    return false
                 }
-   
-            })
-            
-            return false
+            }
         })
         return false 
     })
 })
-
-//Modal Popup Controller
-function toggle_visibility(id){
-    var e = document.getElementById(id);
-
-if(e.style.display == 'block')
-    e.style.display = 'none';
-else 
-    e.style.display = 'block';
-}
 
 
 

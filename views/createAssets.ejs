@@ -1,12 +1,15 @@
-
-    <div class="container-fluid text-center">
-      <p class="lead">Create an Asset.</p>
-      <main role="main" class="col-md-12 ml-sm-auto col-lg-14 px-4">
-          <div class="form-group row">
-              <button  class="btn btn-primary btn-block" type="submit" id="btnCreateAsset" class="col-sm-2 col-form-label">Create Asset</button>
-              &nbsp;
-              <input class="form-control" id="inputAssetName" type="text" placeholder="someAssetName" name="assetName"/>
-          </div>
-      </main>
-    </div>
+<% include ./partials/messages %>
+<div class="container-fluid text-center">
+        <% include ./partials/messages %>
+    <p class="lead">Create an Asset.</p>
+    <main role="main" class="col-md-12 ml-sm-auto col-lg-14 px-4">
+        <div class="form-group row">
+            <button  class="btn btn-primary btn-block" type="submit" id="btnCreateAsset" class="col-sm-2 col-form-label">Create Asset</button>
+            &nbsp;
+            <input class="form-control" id="inputAssetName" type="text" placeholder="someAssetName" name="assetName"/>
+            &nbsp;
+            <input class="form-control" id="inputAssetAmount" type="text" placeholder="Amount of Ticket" name="assetamount"/>
+        </div>
+    </main>
+</div>
 

@@ -4,41 +4,35 @@ const rp = require('request-promise');
 
 class JuicEchain{    
 
-    // Mainwallet to User
-    transfer(address, assetName){
+    transfer(sourceKey, sourceaddress, address, assetName, amount){
 
+        var amount = parseInt(amount)
         const self = this;
         return new Promise(function(resolve, reject){
 
             self.requestToken().then(function(token){
 
-                
+                const signature = CryptoUtils.generateAuthToken(sourceKey, 
+                sourceaddress, "", "");
 
-                const signature = CryptoUtils.generateAuthToken("L57eRseU9tRquYNWkWHZX4S1J8cnV6sGZ2h4tvnSt4jrES59zoqX", 
-                "12T6EhosKPhmpFpc4HAMxx2SwZHLoFmSvW", "", "");
-    
-            let options = {
-                method: 'POST',
-                url: 'https://demo.juicechain.org/node/wallet/transfer/'+address,
-                headers: {
-                    'authorization': token.token,
-                    'signature': signature
-                },
-                body: {
-                    asset: assetName,
-                    amount: 1,
-                    payload: ""
-                },
-                json: true
+                let options = {
+                    method: 'POST',
+                    url: 'https://demo.juicechain.org/node/wallet/transfer/'+address,
+                    headers: {
+                        'authorization': token.token,
+                        'signature': signature
+                    },
+                    body: {
+                        asset: assetName,
+                        amount: amount,
+                        payload: ""
+                    },
+                    json: true
                 };
-
                 rp(options).then(result => {
                     resolve(result);
-                    console.log(result);
                 });
-
             });
-
         });
     }
 
@@ -58,14 +52,14 @@ class JuicEchain{
                 };
                 rp(options).then(result => {
                     resolve(result);
-                    console.log(result);
-            
                 });
             });
         });
     }
 
-    asset(assetName){
+    asset(assetName, amount){
+
+        var amount = parseInt(amount)
         const self = this;
         return new Promise(function(resolve, reject){
             self.requestToken().then(function(token){
@@ -78,14 +72,14 @@ class JuicEchain{
                     },
                     body: {
                         "name": assetName,
-                        "amount": 1000,
+                        "amount": amount,
                         "title": {
                             "de_DE": "some title",
                             "en_GB": "some title"
                         },
                         "publisher": "DHBW",
                         "type": "voucher",
-                        "target": "12T6EhosKPhmpFpc4HAMxx2SwZHLoFmSvW",
+                        "target": "1CpjTuYFz4QwQiN8ucXX5AzEqZAnE24YQP",
                         "description": "Some longer text",
                         "options": {
                             "transfer": true,
@@ -96,10 +90,8 @@ class JuicEchain{
                     },
                     json: true
                 };
-        
                 rp(options).then(result => {
                     resolve(result);
-                    console.log(result);
                 });
             });
         });
@@ -120,11 +112,9 @@ class JuicEchain{
                         'authorization': token.token,
                     },
                     json: true
-  
                 };
                 rp(options).then(result => {
-                    resolve(result);
-                     
+                    resolve(result);  
                 });
             });
         });

@@ -9,7 +9,7 @@ $(document).ready(function() {
 
                 let assetName = []
                 let assetQuantity = []
-                let alertText = ""
+                let alertText = "Ihre Walletbalance: \n \n \n"
                 let alertInfo = ""
                 
                     for(i=0; i<status.length; i++){
@@ -17,7 +17,7 @@ $(document).ready(function() {
                         assetName.push(res.payload[i].name)
                         assetQuantity.push(res.payload[i].quantity)
     
-                        alertInfo = "Ihre Walletbalance für: " + assetName[i] + " ist: " + assetQuantity[i]+".     "
+                        alertInfo = assetName[i].substr(5) + ":     " + '"'+assetQuantity[i]+'"'+"    \n \n"
                         
                         alertText = alertText + alertInfo.toString()
                         
@@ -37,12 +37,7 @@ $(document).ready(function() {
         const origin = window.location.origin;
         const walletURL = origin + "/register"; 
         $.ajax(walletURL).then(res => {
-            console.log(res)
-            console.log("dsads")
-         
-
         })
-
         return false
     })
 })
@@ -50,18 +45,19 @@ $(document).ready(function() {
 $(document).ready(function() {
     $('#btnCreateAsset').click(function() {
         var assetName = document.querySelector("#inputAssetName").value;
+        var amount = document.querySelector("#inputAssetAmount").value;
         const origin = window.location.origin;
-        const assetUrl = origin + "/asset?assetName=" + assetName;   
+        const assetUrl = origin + "/asset?assetName=" + assetName+ "&amount=" + amount;  
         $.ajax(assetUrl).then(function(res) {
-            console.log(res)
             let status = res.success
             let err = res.error
             if(status == false){
                 alert(err)
             }
-            
+            else{
+                alert("You have created "+amount+" tickets of "+assetName)
+            }
         })
-
         return false
     })
 })
@@ -72,6 +68,7 @@ $(document).ready(function() {
     $('#btnTransfer').click(function() {
         const inputUserEmail = document.querySelector("#inputUserEmail").value;
         const inputAssetName = "demo:"+document.querySelector("#inputAssetName").value;
+        const inputAssetAmount = document.querySelector("#inputAssetAmount").value;
 
         const origin = window.location.origin;
         const balanceUrl = origin + "/balance";
@@ -96,14 +93,11 @@ $(document).ready(function() {
 
                         walletaddresstarget = res.walletcreated 
                         const origin = window.location.origin;
-                        const transferUrl = origin + "/transfer?inputAssetName=" + inputAssetName + '&walletaddresstarget=' + walletaddresstarget;
+                        const transferUrl = origin + "/transfer?inputAssetName=" + inputAssetName + '&walletaddresstarget=' + walletaddresstarget + '&inputAssetAmount=' + inputAssetAmount;
                     
-                        $.ajax(transferUrl).then(function(res) {
-                            
-                            console.log(res.success)
-                            let success = res.success;             
+                        $.ajax(transferUrl).then(function(res) {           
                                 
-                                alert("Sie haben an: " + inputUserEmail + " 1 Ticket von "+inputAssetName+" transferiert"); 
+                                alert("Sie haben an: " + inputUserEmail + " " +inputAssetAmount+" Ticket von "+inputAssetName.substr(5)+" transferiert"); 
                         })
                         return false;
                     }
