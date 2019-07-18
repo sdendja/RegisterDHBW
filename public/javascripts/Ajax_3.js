@@ -20,7 +20,7 @@ $(document).ready(function() {
                 document.getElementById(label).innerHTML = assetName.substr(5);
             }
             if(loopvar == 0){
-                alert("No Tickets to enter available ")
+                alert("Keine Tickets verfügbar ")
             }
         })
     })
@@ -36,12 +36,12 @@ $(document).ready(function() {
         $.ajax(dbURL, {url: '/db_information'}).then(function(res) {
            
             if(!res){
-                alert("Unknown Email")
+                alert("Email unbekannt")
                 
               }else{
                   
                   if(res.email != inputUserEmail){
-                      alert("Unknown Email. Check you input")
+                      alert("Email unbekannt. Bitte Eingabe überprüfen")
                   }else{
                       
 
@@ -65,12 +65,12 @@ $(document).ready(function() {
                                 if(arrayVar[i].name == inputAssetName){
                         
                                     status = true
-                                    message ="Entrance approved"
+                                    message ="Einlass gewährt"
                                     break;
                                 }
                                 else{
                                     status = false
-                                    message ="Entrance denied"
+                                    message ="Einlass verweigert"
                                 }
                             }
                             alert(message)

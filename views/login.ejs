@@ -4,21 +4,21 @@
   
   <% include ./partials/messages %>
   
-  <h1 class="h3 mb-3 font-weight-normal text-center">Please sign in</h1>
+  <h1 class="h3 mb-3 font-weight-normal text-center">Bitte anmelden</h1>
 
   <div class="form-group">
-    <label for="inputEmail" class="sr-only">Email address</label>
-    <input type="email" id="email" name="email" class="form-control" placeholder="Enter Email" value="<%= typeof email != 'undefined' ? email : '' %>"/>
+    <label for="inputEmail" class="sr-only">Email-adresse</label>
+    <input type="email" id="email" name="email" class="form-control" placeholder="Email eingeben" value="<%= typeof email != 'undefined' ? email : '' %>"/>
   </div>
 
   <div class="form-group"></div>
     <label for="inputPassword" class="sr-only">Password</label>
-    <input type="password" id="password" name="password" class="form-control" placeholder="Create Password" value="<%= typeof password != 'undefined' ? password : '' %>"/>
+    <input type="password" id="password" name="password" class="form-control" placeholder="Password" value="<%= typeof password != 'undefined' ? password : '' %>"/>
   </div>
 
-  <button type="submit" class="btn btn-primary btn-block">Login</button>
+  <button type="submit" class="btn btn-primary btn-block">Anmelden</button>
   </div>
   <p class="lead mt-4 text-center">
-        No Account? <a href="/users/register">Register</a>
+        Kein Konto? <a href="/users/register">Registrieren</a>
   </p>
 </form>

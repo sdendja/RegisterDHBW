@@ -3,7 +3,7 @@ module.exports = {
     if (req.isAuthenticated()) {
       return next();
     }
-    req.flash('error_msg', 'Please log in to view that resource');
+    req.flash('error_msg', 'Bitte anmelden, um diese Ressource zu sehen');
     res.redirect('/users/login');
   },
 
@@ -11,7 +11,7 @@ module.exports = {
     if (req.isAuthenticated()) {
       return next();
     }
-    req.flash('error_msg', 'You cant logout, when you not logged in');
+    req.flash('error_msg', 'Sie können sich nicht abmelden, wenn Sie nicht angemeldet sind');
     res.redirect('/users/login');
   },
 

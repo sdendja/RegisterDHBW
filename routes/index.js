@@ -4,6 +4,7 @@ var JuicEchain = require("./JuicEchain").JuicEchain;
 var rp = require('request-promise');
 const { ensureAuthenticated, ensureAuthenticated3, forwardAuthenticated } = require('../config/auth');
 const User = require('../models/User');
+const Asset = require('../models/Asset')
 
 // Welcome Page before login
 router.get('/', forwardAuthenticated, (req, res) => res.render('welcome'));
@@ -20,6 +21,7 @@ router.get('/userlist', ensureAuthenticated, function(req, res) {
   });
 });
 
+
 //Booking page
 router.get('/booking', ensureAuthenticated, function(req, res) {
   res.render('booking');
@@ -32,16 +34,22 @@ router.get('/entry', function(req, res) {
 
 //Create Assets page
 router.get('/createAssets', ensureAuthenticated, (req, res) => {
-  const mainwallet = "1CpjTuYFz4QwQiN8ucXX5AzEqZAnE24YQP"
+  const mainwallet = "1JcYgwK8EYQiwSLvRZjY8kr2h7dCUTpPr5"
+  const mainwallet2= "1HDKZraWkYXAGHLhhjgDJKgHLbUc25wiAZ"
   const status = ""
 
-    if(dynamicWallet != mainwallet){
-      req.flash('error_msg', 'You dont have persmission to view this ressource please log in as an admin');
+  if(dynamicWallet != mainwallet){
+  
+    if(dynamicWallet != mainwallet2){
+      req.flash('error_msg', 'Keine Berechtigung für diese Ressoucrce. Bitte als Admin anmelden');
       res.redirect('/welcome2');
-     
-    } else{
+    }else{
       res.render('createAssets');
     }
+  }else{
+    res.render('createAssets');
+  }
+    
 });
 
 
@@ -50,18 +58,34 @@ router.get('/requests', ensureAuthenticated, function(req, res) {
   res.render('requests');
 });
 //---------Requests---------------------------------------------------------------------------------------------------
-
 router.get('/asset', function(req, res){
 
   const assetName = req.query.assetName;
   const amount = req.query.amount
   const juicechain = new JuicEchain();
+  let assetname = assetName
+  let walletamount = amount
+  
 
   juicechain.asset(assetName, amount).then(function(asset){
     
+
+    const newAsset = new Asset({
+
+      assetname,
+      walletamount
+
+    });
+
+    newAsset.save().then(asset => {
+    
+  });
+      
       res.send(asset);
   })
+  
 });
+
 
 //User to User
 router.get('/transfer', function(req, res){
@@ -74,7 +98,7 @@ router.get('/transfer', function(req, res){
   const juicechain = new JuicEchain();
 
   juicechain.transfer(sourceKey, sourceaddress, address, assetName, amount).then(function(transfer){
-
+      
       res.send(transfer);
   });
 });
@@ -84,23 +108,40 @@ router.get('/transfer2', function(req, res){
   
   const address = dynamicWallet
   const assetName = req.query.inputAssetName;
-  const sourceaddress = "1CpjTuYFz4QwQiN8ucXX5AzEqZAnE24YQP"
-  const sourceKey = "L13MC2NWatvdtjhXi8uUSwiCfAbgz1zYhz8hLzQtXGMKrG8X1DKX"
-  const amount = "1"
+  const amount = req.query.amount
+  const sourceaddress = "1JcYgwK8EYQiwSLvRZjY8kr2h7dCUTpPr5"
+  const sourceKey = "L3PN3QBcmKBnWP58D6f8KN38JgGVbjisYntq8optx93tmonfJYD2"
   const juicechain = new JuicEchain();
 
   juicechain.transfer(sourceKey, sourceaddress, address, assetName, amount).then(function(transfer){
-
+    
       res.send(transfer);
+  });
+});
+
+//Mainwallet to admin2
+router.get('/transfer3', function(req, res){
+  
+  const address = req.query.walletaddresstarget
+  const assetName = req.query.inputAssetName;
+  const amount = req.query.amount
+  const sourceaddress = "1JcYgwK8EYQiwSLvRZjY8kr2h7dCUTpPr5"
+  const sourceKey = "L3PN3QBcmKBnWP58D6f8KN38JgGVbjisYntq8optx93tmonfJYD2"
+  const juicechain = new JuicEchain();
+
+  juicechain.transfer(sourceKey, sourceaddress, address, assetName, amount).then(function(transfer){
+  
+    res.send(transfer);
   });
 });
 
 router.get('/balance', function(req, res){
    
   const juicechain = new JuicEchain();
+  console.log("lala_1")
 
   juicechain.balance(dynamicWallet).then(function(balance){
-       
+    console.log("lala_2")
       res.send(balance);
       
   });
@@ -108,12 +149,12 @@ router.get('/balance', function(req, res){
 
 router.get('/balance2', function(req, res){
 
-  const mainwallet = "1CpjTuYFz4QwQiN8ucXX5AzEqZAnE24YQP"
+  const mainwallet = "1JcYgwK8EYQiwSLvRZjY8kr2h7dCUTpPr5"
 
   const juicechain = new JuicEchain();
   
   juicechain.balance(mainwallet).then(function(balance){
-                  
+
       res.send(balance);
               
   });
@@ -134,13 +175,14 @@ router.get('/balance3', function(req, res){
 
 router.get('/db_information', function(req, res){
   
-  let errors = [];
-  var userEmail = req.query.inputUserEmail
+
+  const userEmail = req.query.inputUserEmail
   User.findOne({ email: userEmail },{}, function(err, result){
         
         res.send(result)
         
   })
 });
+
 
 module.exports = router;

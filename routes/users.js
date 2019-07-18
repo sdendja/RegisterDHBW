@@ -20,15 +20,15 @@ router.post('/register', (req, res) => {
   let errors = [];
 
   if (!email || !password || !password2) {
-    errors.push({ msg: 'Please enter all fields' });
+    errors.push({ msg: 'Bitte alle Felder ausfüllen' });
   }
 
   if (password != password2) {
-    errors.push({ msg: 'Passwords do not match' });
+    errors.push({ msg: 'Passwörter stimmen nicht überein' });
   }
 
   if (password.length < 6) {
-    errors.push({ msg: 'Password must be at least 6 characters' });
+    errors.push({ msg: 'Password muss mindestens 6 Stellen aufweisen' });
   }
 
   if (errors.length > 0) {
@@ -42,7 +42,7 @@ router.post('/register', (req, res) => {
 
     User.findOne({ email: email }).then(user => {
       if (user) {
-        errors.push({ msg: 'Email already exists' });
+        errors.push({ msg: 'Email bereits belegt' });
         res.render('register', {
           errors,
           email,
@@ -77,8 +77,8 @@ router.post('/register', (req, res) => {
             newUser.save().then(user => {
                 req.flash(
                   'success_msg',
-                  'You are now registered and can login. ',
-                  'Your walletaddress is: ' + walletcreated
+                  'Sie sind jetzt registriert und können sich anmelden. ',
+                  'Ihre Walletadresse ist: ' + walletcreated
                 );
                 res.redirect('/users/login');  
               })
@@ -102,7 +102,7 @@ router.post('/login', (req, res, next) => {
 // Logout
 router.get('/logout', ensureAuthenticated2, (req, res) => {
   req.logout();
-  req.flash('success_msg', 'You are logged out');
+  req.flash('success_msg', 'Sie sind abgemeldet');
   res.redirect('/users/login');
 });
 

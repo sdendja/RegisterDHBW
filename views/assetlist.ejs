@@ -1,0 +1,20 @@
+
+    
+<div class="container-fluid">
+        <p class="lead text-center">Liste mit allen Events und Ticketanzahl</p>
+        <ul>
+            <% 
+              for (var i = 0; i < assetlist.length; i++) { %>
+                <form class="form-control">
+                    <a><%= assetlist[i].assetname %></a>,
+                    <a><%= assetlist[i].walletamount %></a>
+                </form>
+            <% 
+          } 
+        %>
+        </ul>
+      </div> 
+      
+      
+      
+      

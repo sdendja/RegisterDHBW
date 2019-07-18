@@ -79,7 +79,7 @@ class JuicEchain{
                         },
                         "publisher": "DHBW",
                         "type": "voucher",
-                        "target": "1CpjTuYFz4QwQiN8ucXX5AzEqZAnE24YQP",
+                        "target": "1JcYgwK8EYQiwSLvRZjY8kr2h7dCUTpPr5",
                         "description": "Some longer text",
                         "options": {
                             "transfer": true,

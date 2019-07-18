@@ -1,21 +1,22 @@
 
 <div class="container-fluid">
-  <p class="lead">Check out your Walletbalance or<br> transfer Assets to other users</p>
+    <% include ./partials/messages %>
+  <p class="lead">Guthaben prüfen oder Tickets<br>an andere Benutzer versenden </p>
   <div class="form-group row">
-    <button id="btnBalance" class="btn btn-primary btn-block" type="submit">Check out Wallet Balance</button>
+    <button id="btnBalance" class="btn btn-primary btn-block" type="submit">Guthaben prüfen</button>
   </div>
   
   &nbsp;
   <div class="form-group row">
-    <button id="btnTransfer" class="btn btn-primary btn-block" type="submit">Transefer to:</button>
+    <button id="btnTransfer" class="btn btn-primary btn-block" type="submit">Versenden an:</button>
     &nbsp;
-    <input id="inputAssetName" class="form-control" type="text" placeholder="Type in the assetname" name="assetName" required />
+    <input id="inputAssetName" class="form-control" type="text" placeholder="Eventnamen eintragen" name="assetName" required />
     &nbsp;
-    <input class="form-control" id="inputAssetAmount" type="text" placeholder="Amount of Ticket" name="assetamount"/>
+    <input class="form-control" id="inputAssetAmount" type="text" placeholder="Anzahl der Tickets" name="assetamount"/>
   </div>
 
   <div class="form-group row">
-    <input id="inputUserEmail" class="form-control" type="text" placeholder="Type in the target Email" name="email" required />
+    <input id="inputUserEmail" class="form-control" type="text" placeholder="Ziel-Emailadresse eingeben" name="email" required />
   </div>
 </div>
 

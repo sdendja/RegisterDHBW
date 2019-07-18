@@ -10,25 +10,27 @@ $(document).ready(function() {
             
                 let button = "btnTicket"+j;
                 let label = "label"+j
-                let buttonStatus = 'Ausverkauft oder nicht Verfügbar';
+                let labelstatus = 'Ausverkauft oder nicht Verfügbar ';
                 document.getElementById(button).disabled = true;
-                document.getElementById(button).innerHTML = buttonStatus;
+                document.getElementById(label).innerHTML = labelstatus;
                 document.getElementById(button).style.visibility = 'hidden';  
                 document.getElementById(label).style.visibility = 'hidden';
                   
             }
             for(i=0, j=1; i<loopvar ; i++, j++){
-                let status = res.payload[i].quantity;
+                let quantity = res.payload[i].quantity;
                 let assetName = res.payload[i].name
                 let button = "btnTicket"+j;
                 let label = "label"+j
-                let buttonStatus2 = 'Book now! ' + status + ' Tickets Verfügbar';
+                let buttonStatus2 = 'Jetzt buchen!'
+                let labelstatus = ':  ' + quantity + ' Tickets Verfügbar';
+                document.getElementById(label).innerHTML = assetName.substr(5) + labelstatus;
                 document.getElementById(button).innerHTML = buttonStatus2;
-                document.getElementById(label).innerHTML = assetName.substr(5);
+                
 
             }
             if(loopvar == 0){
-                alert("No Tickets to book available")
+                alert("Keine Tickets verfügbar ")
             }
         })
     })
@@ -40,18 +42,19 @@ $(document).ready(function() {
         const number = this.id.substr(-1);
         
         const label = "label"+number
-        const inputAssetName = "demo:"+document.getElementById(label).innerText
-        const assetName = inputAssetName.substr(5)
-
+        const inputAssetName = document.getElementById(label).innerText
+        const vari = inputAssetName.split(":")
+        const assetName = "demo:"+vari[0]
+        const amount = "1"
         const origin = window.location.origin;
-        const transferUrl = origin + "/transfer2?inputAssetName=" + inputAssetName;
+        const transferUrl = origin + "/transfer2?inputAssetName=" + assetName+"&amount="+amount;
         $.ajax(transferUrl).then(function(res) {
 
             const success = res.payload.success
             const error = res.payload.error;
             
             if(success == false){ 
-                alert(error+". Something went wrong")
+                alert(error+". Etwas ist schief gelaufen")
             }
             else{
                 let success = res.success;
