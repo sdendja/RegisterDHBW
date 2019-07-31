@@ -18,6 +18,7 @@
     "express": "^4.16.4",
     "express-ejs-layouts": "^2.5.0",
     "express-session": "^1.15.6",
+    "mongo-in-memory": "0.0.5",
     "mongoose": "^5.4.1",
     "node-wget": "^0.4.3",
     "passport": "^0.4.0",
