@@ -17,7 +17,7 @@ class JuicEchain{
 
                 let options = {
                     method: 'POST',
-                    url: 'https://demo.juicechain.org/node/wallet/transfer/'+address,
+                    url: 'http://demo.juicechain.org:3001/node/wallet/transfer/'+address,
                     headers: {
                         'authorization': token.token,
                         'signature': signature
@@ -44,7 +44,7 @@ class JuicEchain{
         
             let options = {
                 method: 'POST',
-                url: 'https://demo.juicechain.org/node/wallet',
+                url: 'http://demo.juicechain.org:3001/node/wallet',
                 headers: {
                     'authorization': token.token
                 },
@@ -66,7 +66,7 @@ class JuicEchain{
 
                 let options = {
                     method: 'POST',
-                    url: 'https://demo.juicechain.org/node/assets/',
+                    url: 'http://demo.juicechain.org:3001/node/assets/',
                     headers: {
                         'authorization': token.token
                     },
@@ -107,7 +107,7 @@ class JuicEchain{
 
                 let options = {
                     method: 'GET',
-                    url: 'https://demo.juicechain.org/node/wallet/'+address+'/0/' + time.getTime(),
+                    url: 'http://demo.juicechain.org:3001/node/wallet/'+address+'/0/' + time.getTime(),
                     headers: {
                         'authorization': token.token,
                     },
@@ -125,7 +125,7 @@ class JuicEchain{
 
             let options = {
                 method: 'POST',
-                url: 'https://demo.juicechain.org/node/auth',
+                url: 'http://demo.juicechain.org:3001/node/auth',
                 headers: {
                     'authorization': 'none'
                 },
