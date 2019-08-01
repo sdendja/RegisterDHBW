@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 const flash = require('connect-flash');
 const session = require('express-session');
-const MongoInMemory = require('mongo-in-memory');
+///const MongoInMemory = require('mongo-in-memory');
 const app = express();
 
 // Passport Config
@@ -14,14 +14,12 @@ require('./config/passport')(passport);
 // DB Config const db = mongoose.connection; 
 const db = require('./config/keys').mongoURI;
 
-const mongoServerInstance = new MongoInMemory(8090);
-mongoServerInstance.start((error, config) => {
     // Connect to MongoDB#
-    mongoose.connect("mongodb://localhost:8090/admin", {
+    mongoose.connect("mongodb://dhbw:dhbw2019@zion.juicecommerce.de:27017/dhbw", {
         useNewUrlParser: true }).then(() =>
         console.log('MongoDB Connected')).catch(err =>
         console.log(err));
-});
+
 
 // EJS  
 app.use(expressLayouts);
